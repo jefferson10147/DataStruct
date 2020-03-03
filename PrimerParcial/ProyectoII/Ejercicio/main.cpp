@@ -13,7 +13,6 @@ class Alumno
       char *get_nom()          { return nom;           }
       void set_nom(char *n)    { strcpy(nom,n);        }
       void set_ced(int n)      { ced= n;               }
-      void imprime()     { cout<<ced<<"  "<<nom<<endl; }
       void cargarAlumno ()
       {
         cout<<"\n ...INGRESANDO DATOS ..."<<endl;
@@ -45,7 +44,6 @@ class Materia
       void set_tit(char *n)    { strcpy(tit,n);        }
       void set_cod(int n)      { cod= n;               }
       void set_uc( char v )    { uc=v;                 }
-      void imprime()           { cout<<cod<<"  "<<tit<<"  "<<uc<<endl;}
       void cargarMateria ()
       {
         cout<<"\n ...INGRESANDO DATOS ..."<<endl;
@@ -70,7 +68,6 @@ class Semestre
       void set_ced(int c)         {     ced = c;     }
       int  get_clave(int flag)  {  if ( flag==0 ) return cod;
                                    else           return ced;}
-      void imprime()  { cout<<cod<<"  "<<ced<<endl; }
       void cargar ()
       {
         cout<<"\n ...INGRESANDO DATOS ..."<<endl;
@@ -351,12 +348,12 @@ int main(int argc, char *argv[])
             case 5: generarListadoSemestre();
                     break;
             case 6: cout<<"1. Datos.dat"<<endl;
-					cout<<"2. Materias.dat"<<endl;
-					cout<<"3. Semestre.dat"<<endl;
-					cout<<"Opcion: ";
-					cin>>opcion2;
-					consultarArchivo(opcion2);
-					break;
+		    cout<<"2. Materias.dat"<<endl;
+		    cout<<"3. Semestre.dat"<<endl;
+		    cout<<"Opcion: ";
+		    cin>>opcion2;
+		    consultarArchivo(opcion2);
+		    break;
             case 7: break;
             default: cout<<"Opcion incorrecta."<<endl;
         }
