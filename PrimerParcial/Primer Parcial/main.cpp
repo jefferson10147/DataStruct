@@ -30,15 +30,14 @@ class Alumno
       { return ced < obj.get_clave(0);}
       bool operator <= (Alumno &obj)
       { return ced <= obj.get_clave(0);}
-      
       bool operator > (Alumno &obj)
       { return ced > obj.get_clave(0);}
       bool operator >= (Alumno &obj)
       { return ced >= obj.get_clave(0);}
-      
       bool operator == (Alumno &obj)
       { return ced == obj.get_clave(0);}
-      friend ostream & operator<<(  ostream &os, Alumno  c ) { 
+      friend ostream & operator<<(  ostream &os, Alumno  c )
+      { 
           os<<c.ced<<"  "<<c.nom<<endl; 
           return os;
        } 
@@ -56,7 +55,7 @@ class Materia
       char *get_tit()          { return tit;           }
       void set_tit(char *n)    { strcpy(tit,n);        }
       void set_cod(int n)      { cod= n;               }
-      void setValue(int n)      { cod= n;               }
+      void setValue(int n)     { cod= n;               }
       void set_uc( char v )    { uc=v;                 }
       void imprime()           { cout<<cod<<"  "<<tit<<"  "<<uc<<endl;}
       void cargarMateria ()
@@ -67,20 +66,18 @@ class Materia
         cout<<"Ingrese el cod de la materia: "; cin>>cod;
       }
       
-	  bool operator < (Materia &obj)
+      bool operator < (Materia &obj)
       { return cod < obj.get_clave(0);}
       bool operator <= (Materia &obj)
       { return cod <= obj.get_clave(0);}
-      
       bool operator > (Materia &obj)
       { return cod > obj.get_clave(0);}
       bool operator >= (Materia &obj)
       { return cod >= obj.get_clave(0);}
-      
       bool operator == (Materia &obj)
       { return cod == obj.get_clave(0);}
-      
-      friend ostream & operator<<(  ostream &os, Materia  m ) { 
+      friend ostream & operator<<(  ostream &os, Materia  m )
+      { 
           os<<m.cod<<"  "<<m.tit<<" "<<m.uc<<endl; 
           return os;
        } 
@@ -93,11 +90,11 @@ class Semestre
   public:
       Semestre ( int v1, int v2 ) { cod=v1; ced=v2; }
       Semestre ( )                {                 }
-      void set_cod(int c)         {     cod = c;     }
-      void set_ced(int c)         {     ced = c;     }
+      void set_cod(int c)         {     cod = c;    }
+      void set_ced(int c)         {     ced = c;    }
       int  get_clave(int flag)  {  if ( flag==0 ) return cod;
                                    else           return ced;}
-      void setValue(int n)      { cod= n;               }
+      void setValue(int n)        {      cod= n;    }
       void imprime()  { cout<<cod<<"  "<<ced<<endl; }
       void cargar ()
       {
@@ -110,16 +107,14 @@ class Semestre
       { return cod < obj.get_clave(0);}
       bool operator <= (Semestre &obj)
       { return cod <= obj.get_clave(0);}
-      
       bool operator > (Semestre &obj)
       { return cod > obj.get_clave(0);}
       bool operator >= (Semestre &obj)
       { return cod >= obj.get_clave(0);}
-      
       bool operator == (Semestre &obj)
       { return cod == obj.get_clave(0);}
-      
-      friend ostream & operator<<(  ostream &os, Semestre  s ) { 
+      friend ostream & operator<<(  ostream &os, Semestre  s )
+      { 
           os<<s.cod<<"  "<<s.ced<<endl; 
           return os;
        }
@@ -160,9 +155,9 @@ bool consultaDatosAlumno (int cedula, bool flag = false)
     {
         if(flag)
         {
-			cout<<objAux;
-			system("pause");	
-		}
+	   cout<<objAux;
+	   system("pause");	
+         }
         return true;
     }else
         return false;
@@ -178,10 +173,10 @@ bool consultaDatosMateria (int cod, bool flag = false)
     if (objmat.Buscar_Sec(objAux,p))
     {
         if (flag)
-		{
-			cout<<objAux;
-			system("pause");	
-		}
+	{
+	   cout<<objAux;
+	   system("pause");	
+	}
         return true;
     }else
         return false;
@@ -215,7 +210,6 @@ void realizarInscripcion ()
         }
     }else
         cout<<"\nAlumno no encontrado."<<endl;
-        
     system("pause");
 }
 
@@ -307,17 +301,17 @@ void consultarArchivo(int o)
 	switch (o)
 	{
 		case 1: objalu.Abrir (ios::in | ios::binary);
-				objalu.Imprimir();
-				objalu.Cerrar();
-				break;
+			objalu.Imprimir();
+			objalu.Cerrar();
+			break;
 		case 2: objmat.Abrir (ios::in | ios::binary);
-				objmat.Imprimir();
-				objmat.Cerrar();
-				break;
+			objmat.Imprimir();
+			objmat.Cerrar();
+			break;
 		case 3: objsem.Abrir (ios::in | ios::binary);
-				objsem.Imprimir();
-				objsem.Cerrar();
-				break;
+			objsem.Imprimir();
+			objsem.Cerrar();
+			break;
 	}
 	system("pause");
 }
@@ -331,29 +325,28 @@ void ordenarMezclaDirecta (int o)
 	MezclaDirecta<Semestre> objOrdenarSemestre ((char*)"Inscritos.dat");
 	switch (o)
 	{
-		case 1: //alumnos
+		case 1: 
     			objalu.Abrir(ios::in | ios::binary);
     			n = objalu.getN();
     			objalu.Cerrar();
     			objOrdenarAlumnos.Ordenar(n);
-				band = true;
-				break;
-		case 2: //materias 
-				objmat.Abrir(ios::in | ios::binary);
-				n = objmat.getN();
-				objmat.Cerrar();
-				objOrdenarMaterias.Ordenar(n);
-				band = true;
-				break;
-		case 3: //semestre
-				objsem.Abrir(ios::in | ios::binary);
-				n = objsem.getN();
-				objsem.Cerrar();
-				objOrdenarSemestre.Ordenar(n);
-				band = true;
-				break;
+			band = true;
+			break;
+		case 2: 
+			objmat.Abrir(ios::in | ios::binary);
+			n = objmat.getN();
+			objmat.Cerrar();
+			objOrdenarMaterias.Ordenar(n);
+			band = true;
+			break;
+		case 3: 
+			objsem.Abrir(ios::in | ios::binary);
+			n = objsem.getN();
+			objsem.Cerrar();
+			objOrdenarSemestre.Ordenar(n);
+			band = true;
+			break;
 	}
-	
 	if (band)
 		cout<<"Ordenamiento de Archivos realizado con exito."<<endl;
 	else
@@ -371,26 +364,26 @@ void ordenarMezclaEquilibrada (int o)
 	switch(o)
 	{
 		case 1: 
-				objOrdenarAlumno.ordenar();
-				rename("Datos.dat",(char*)"ArchivoViejo.dat");
-				remove((char*)"ArchivoViejo.dat");
-				rename((char*)"F2.dat","Datos.dat");
-				band = true;
-				break;
+			objOrdenarAlumno.ordenar();
+			rename("Datos.dat",(char*)"ArchivoViejo.dat");
+			remove((char*)"ArchivoViejo.dat");
+			rename((char*)"F2.dat","Datos.dat");
+			band = true;
+			break;
 		case 2: 
-				objOrdenarMateria.ordenar();
-				rename("Materia.dat",(char*)"ArchivoViejo.dat");
-				remove((char*)"ArchivoViejo.dat");
-				rename((char*)"F2.dat","Materia.dat");
-				band = true;
-				break;
+			objOrdenarMateria.ordenar();
+			rename("Materia.dat",(char*)"ArchivoViejo.dat");
+			remove((char*)"ArchivoViejo.dat");
+			rename((char*)"F2.dat","Materia.dat");
+			band = true;
+			break;
 		case 3: 
-				objOrdenarSemestre.ordenar();
-				rename("Inscritos.dat",(char*)"ArchivoViejo.dat");
-				remove((char*)"ArchivoViejo.dat");
-				rename((char*)"F2.dat","Inscritos.dat");
-				band = true;
-				break;	
+			objOrdenarSemestre.ordenar();
+			rename("Inscritos.dat",(char*)"ArchivoViejo.dat");
+			remove((char*)"ArchivoViejo.dat");
+			rename((char*)"F2.dat","Inscritos.dat");
+			band = true;
+			break;	
 	}
 	
 	if (band)
@@ -425,68 +418,67 @@ void retirarMateria()
         }
         cout<<"\nTotal de Unidades de Creditos inscritas: "<<acum<<endl<<endl;
         
-		fstream archivoAlumnosConRetiro;
-		int cedulaRetiro;
-		bool banderaCedula = false;
-	    archivoAlumnosConRetiro.open((char *)"AlumnosConRetiro.txt", ios::in);    
-	    do{
-	    	archivoAlumnosConRetiro>>cedulaRetiro;
-			if(cedulaRetiro == cedula){
-	    		banderaCedula = true;
-	    		break;
-			}
-			if(archivoAlumnosConRetiro.eof()) break;
-		}while (true);
-		archivoAlumnosConRetiro.close();
-		
-		int materiaRetirar;
-		if(!banderaCedula)
-		{
-			cout<<"\nIngrese el codigo de la materia que desea retirar:";
-        	cin>>materiaRetirar;
-        	int posInicialMateria = 0;
-        	Materia objMateriaRetirar ((char *)" ",materiaRetirar,(char)' ');
-        	objmat.Buscar_Sec(objMateriaRetirar,posInicialMateria);
-        	int resta = acum - (int)(objMateriaRetirar.get_uc()-'0');
-        	if(resta >= 4)
-			{
-        		Semestre objsemRetirar (materiaRetirar,cedula);
-	        	Semestre objsemEscribir;
-	        		
-	        	Archivo<Semestre> objsemAuxiliar((char*)"InscritosNuevo.dat");
-	        	objsemAuxiliar.Abrir(ios::out | ios::binary);
-	        		
-	        	int posInicial = 0;
-	        	objsem.Limpiar();
-	        	objsem.Posicionar(posInicial);
-	        	while (true)
-	        	{
-	        		objsem.Leer(objsemEscribir);
-	        		if(objsem.EsFin()) break;
-					if(objsemRetirar.get_clave(0) == objsemEscribir.get_clave(0) && objsemRetirar.get_clave(1) == objsemEscribir.get_clave(1))
-	        			continue;
-	        		else
-	        			objsemAuxiliar.Escribir(objsemEscribir);
-				}
-				objsem.Cerrar();
-				objsemAuxiliar.Cerrar();
-				remove("Inscritos.dat");
-				rename("InscritosNuevo.dat","Inscritos.dat");
-				archivoAlumnosConRetiro.open((char*)"AlumnosConRetiro.txt",ios::app);
-				archivoAlumnosConRetiro<<cedula<<endl;
-				archivoAlumnosConRetiro.close();	
-			}else{
-				cout<<"\nNo puede retirar materias porque queda con baja carga."<<endl;
-				objsem.Cerrar ();
-			}	
+	fstream archivoAlumnosConRetiro;
+	int cedulaRetiro;
+	bool banderaCedula = false;
+	archivoAlumnosConRetiro.open((char *)"AlumnosConRetiro.txt", ios::in);    
+	do
+	{
+	     archivoAlumnosConRetiro>>cedulaRetiro;
+	     if(cedulaRetiro == cedula)
+	     {
+	    	banderaCedula = true;
+	    	break;
+             }
+            if(archivoAlumnosConRetiro.eof()) break;
+	}while (true);
+	archivoAlumnosConRetiro.close();		
+	int materiaRetirar;
+	if(!banderaCedula)
+	{
+ 	      cout<<"\nIngrese el codigo de la materia que desea retirar:";
+              cin>>materiaRetirar;
+              int posInicialMateria = 0;
+              Materia objMateriaRetirar ((char *)" ",materiaRetirar,(char)' ');
+              objmat.Buscar_Sec(objMateriaRetirar,posInicialMateria);
+              int resta = acum - (int)(objMateriaRetirar.get_uc()-'0');
+              if(resta >= 4)
+	      {
+        	  Semestre objsemRetirar (materiaRetirar,cedula);
+	          Semestre objsemEscribir;		
+	          Archivo<Semestre> objsemAuxiliar((char*)"InscritosNuevo.dat");
+	          objsemAuxiliar.Abrir(ios::out | ios::binary);
+	       	  int posInicial = 0;
+	          objsem.Limpiar();
+	          objsem.Posicionar(posInicial);
+	          while (true)
+	          {
+	        	objsem.Leer(objsemEscribir);
+	         	if(objsem.EsFin()) break;
+			if(objsemRetirar.get_clave(0) == objsemEscribir.get_clave(0) && objsemRetirar.get_clave(1) == objsemEscribir.get_clave(1))
+	       		    continue;
+	        	else
+	        	    objsemAuxiliar.Escribir(objsemEscribir);
+		   }
+		   objsem.Cerrar();
+		   objsemAuxiliar.Cerrar();
+		   remove("Inscritos.dat");
+		   rename("InscritosNuevo.dat","Inscritos.dat");
+		   archivoAlumnosConRetiro.open((char*)"AlumnosConRetiro.txt",ios::app);
+	           archivoAlumnosConRetiro<<cedula<<endl;
+		   archivoAlumnosConRetiro.close();	
 		}else
+	        {
+		   cout<<"\nNo puede retirar materias porque queda con baja carga."<<endl;
+		   objsem.Cerrar ();
+		}	
+	}else
 			cout<<"Este alumno ya realizo un retiro, no puede hacer mas."<<endl;
 			
 		objalu.Cerrar();
 		objmat.Cerrar();
 	}else
-		cout<<"No se ha encontrado el alumno en el archivo."<<endl;
-		
+	    cout<<"No se ha encontrado el alumno en el archivo."<<endl;	
 	system("pause");
 }
 
