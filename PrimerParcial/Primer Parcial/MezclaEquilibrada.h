@@ -19,6 +19,7 @@ class MezclaEquilibrada {
 			{
 		    (*f).close();
 		}
+	
 		void particionInicial()
 		{
 		    T aux, dato;
