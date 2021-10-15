@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string.h>
 
+#include "Archivo.h"
+
 using namespace std;
 
 
@@ -16,6 +18,7 @@ class Mascota
         char sexo;
         int  edad;
         char animal[30];
+        
     public:
         Mascota() { }
         
@@ -53,7 +56,6 @@ class Usuario
 		int numeroDeAdopciones;
 	
 	public: 
-	
 		Usuario() { }
 		Usuario(char *ci, char *n, char *e, char *c, char *d, char *t, int edad){
 			strcpy(cedula, ci);
@@ -124,7 +126,7 @@ int main() {
     u.mostrar();
     adop.mostrar();
     
-    cout << "numero de registros" << ++numeroDeRegistros << endl;
+    cout << "numero de registros " << ++numeroDeRegistros << endl;
 	  
 	cout << endl;
     system("pause");
