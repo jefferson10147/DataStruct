@@ -4,8 +4,7 @@
 using namespace std;
 
 
-enum tipo{gato, perro, conejo};
-char Tipo[][10]={"gato","perro","conejo"};
+int numeroDeRegistros = 0;
 
 class Mascota
 {
@@ -50,7 +49,8 @@ class Usuario
 		char direccion[30];
 		char telefono[30];
 		int edad;
-		bool esApto = true;
+		bool esApto;
+		int numeroDeAdopciones;
 	
 	public: 
 	
@@ -63,6 +63,8 @@ class Usuario
 			strcpy(direccion, d);
 			strcpy(telefono, t);
 			this->edad = edad;
+			esApto = true;
+			numeroDeAdopciones = 0;
 		}
 		
 		char *getRef(){
@@ -80,16 +82,51 @@ class Usuario
 		bool getEsApto(){
 			return esApto;
 		}
+		
+		int getNumeroDeAdopciones(){
+			return numeroDeAdopciones;
+		}
+		
+		void aumentarNumeroAdopciones(){
+			numeroDeAdopciones ++;
+		}
+};
+
+class Adopcion
+{
+	private:
+		char cedula[30];
+		char codigo[30];
+		char fecha[15];
+	
+	public:
+		Adopcion(){ }
+		
+		Adopcion(char *ci, char *c, char *f){
+			strcpy(cedula, ci);
+			strcpy(codigo, c);
+			strcpy(fecha, f);
+		}
+			
+		void mostrar(){ 
+			cout << cedula << " " << codigo << " " << fecha << endl;
+		}
+	
 };
 
 int main() {
 
 	Mascota a("Manchas", 5, "callejero", "5487L", "De la unet", 'F', "perro");
 	Usuario u("V26493551", "Jefferson", "Tachira", "Tariba", "Calle 3", "+58 412 54602929", 22);
+	Adopcion adop("V26493551", "5487L", "27/10/21");
 	
     a.mostrar();
     u.mostrar();
+    adop.mostrar();
     
-    
-    return 0;
+    cout << "numero de registros" << ++numeroDeRegistros << endl;
+	  
+	cout << endl;
+    system("pause");
+    return EXIT_SUCCESS;
 }
