@@ -116,6 +116,11 @@ class Adopcion
 	
 };
 
+TArchivo<Mascota> archivoMascota((char*)"mascota.dat");
+TArchivo<Usuario> archivoUsuario((char*)"usuario.dat");
+TArchivo<Adopcion> archivoAdopcion((char*)"adopcion.dat");
+
+
 int main() {
 
 	Mascota a("Manchas", 5, "callejero", "5487L", "De la unet", 'F', "perro");
@@ -126,8 +131,13 @@ int main() {
     u.mostrar();
     adop.mostrar();
     
-    cout << "numero de registros " << ++numeroDeRegistros << endl;
-	  
+    cout  << endl << endl << "numero de registros " << ++numeroDeRegistros << endl << endl;
+	
+	cout << "Archivos:" << endl;
+	cout << archivoMascota.get_nomb() << endl;
+	cout << archivoUsuario.get_nomb() << endl;
+	cout << archivoAdopcion.get_nomb() << endl;
+	
 	cout << endl;
     system("pause");
     return EXIT_SUCCESS;
