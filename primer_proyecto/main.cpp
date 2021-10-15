@@ -102,6 +102,8 @@ class Adopcion
 		char fecha[15];
 	
 	public:
+		static int totalMascotasAdoptadas;
+		
 		Adopcion(){ }
 		
 		Adopcion(char *ci, char *c, char *f){
@@ -124,12 +126,16 @@ TArchivo<Adopcion> archivoAdopcion((char*)"adopcion.dat");
 int main() {
 
 	Mascota a("Manchas", 5, "callejero", "5487L", "De la unet", 'F', "perro");
-	Usuario u("V26493551", "Jefferson", "Tachira", "Tariba", "Calle 3", "+58 412 54602929", 22);
-	Adopcion adop("V26493551", "5487L", "27/10/21");
+	Mascota a1("Coqui", 8, "Labrador", "5498CM", "De la unet", 'M', "perro");
+	Mascota a2("Wilson", 7, "Gato rubio", "8789LO", "De noruega", 'M', "gato");
 	
-    a.mostrar();
-    u.mostrar();
-    adop.mostrar();
+	Usuario u("V26493551", "Jefferson", "Tachira", "Tariba", "Calle 3", "+58 412 54602929", 22);
+	Usuario u1("V89754211", "Pedro", "Tachira", "Michelena", "Calle 8", "+58 424 59848578", 25);
+	Usuario u2("E98785485", "Milagros", "Norte de Santader", "Cucuta", "Calle 7", "+58 412 54602929", 23);
+	
+	Adopcion adop("V26493551", "5498CM", "27/10/21");
+	Adopcion adop1("E98785485", "5487L", "13/11/21");
+	
     
     cout  << endl << endl << "numero de registros " << ++numeroDeRegistros << endl << endl;
 	
@@ -137,6 +143,29 @@ int main() {
 	cout << archivoMascota.get_nomb() << endl;
 	cout << archivoUsuario.get_nomb() << endl;
 	cout << archivoAdopcion.get_nomb() << endl;
+	
+	cout << "Insertando datos a los archivos..." << endl;
+	archivoMascota.insertar(a);
+	archivoMascota.insertar(a1);
+	archivoMascota.insertar(a2);
+	archivoUsuario.insertar(u);
+	archivoUsuario.insertar(u1);
+	archivoUsuario.insertar(u2);
+	archivoAdopcion.insertar(adop);
+	archivoAdopcion.insertar(adop1);
+	cout << endl << endl;
+	
+	cout << "Listado de mascotas:" << endl;
+	archivoMascota.listar();
+	cout << endl << endl;
+	
+	cout << "Listado de Usuarios" << endl;
+	archivoUsuario.listar();
+	cout << endl << endl;
+	
+	cout << "Listado de Adopciones" << endl;
+	archivoAdopcion.listar();
+	cout << endl << endl;
 	
 	cout << endl;
     system("pause");
