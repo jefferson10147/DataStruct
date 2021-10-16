@@ -126,8 +126,13 @@ class Usuario
 			numeroDeAdopciones = 0;
 		}
 		
+		
 		void aumentarNumeroAdopciones(){
 			numeroDeAdopciones ++;
+		}
+		
+		void disminuirNumeroAdopciones(){
+			numeroDeAdopciones --;
 		}
 		
 		void setEstado(char *e){
@@ -171,10 +176,24 @@ class Adopcion
 			strcpy(fecha, f);
 			registro = r;
 		}
+		
+		Adopcion(int r){
+			registro = r;
+		}
 			
+		char *getCedula(){
+			return cedula;
+		}	
+		
+		char *getCodigo(){
+			return codigo;
+		}
+		
 		void mostrar(){ 
-			cout << cedula << " " << codigo << " " << fecha << endl;
+			cout << registro << " " << cedula << " " << codigo << " " << fecha << endl;
 		}		
+		
+		int getRegistro(){ return registro; }
 		
 		char *getRef(){
 			return fecha;
@@ -335,8 +354,6 @@ void insertarAdopcion(){
 	
 	Mascota mascotaAdoptar(codigo);
 	Usuario personaAdoptar(cedula);
-	
-	
 	
 	if((archivoMascota.buscar(mascotaAdoptar) >= 0) && (archivoUsuario.buscar(personaAdoptar) >= 0)){
 		if (mascotaAdoptar.getDisponibilidad() && personaAdoptar.getEsApto() && personaAdoptar.getNumeroDeAdopciones() < 3){
@@ -554,6 +571,32 @@ void listaNegra(){
 }
 
 
+void eliminarDeterminadoRegistro(){
+	int posicion;
+	
+	cout << "Ingrese la posicion de la adopcion que desea eliminar: ";
+	cin >> posicion;
+	
+	Adopcion registroEspecifico(posicion);
+	
+	archivoAdopcion.buscarPos(registroEspecifico, posicion);
+	
+	Mascota mascotaActualizar(registroEspecifico.getCodigo());
+	archivoMascota.buscar(mascotaActualizar);
+	mascotaActualizar.setDisponibilidad(true);
+	archivoMascota.actualizar(mascotaActualizar);
+	
+	Usuario usuarioActualizar(registroEspecifico.getCedula());
+	archivoUsuario.buscar(usuarioActualizar);
+	usuarioActualizar.disminuirNumeroAdopciones();
+	archivoUsuario.actualizar(usuarioActualizar);
+	
+	archivoAdopcion.eliminar(registroEspecifico);
+	
+	cout << "Eliminando..." << endl;
+	system("pause");
+}
+
 int main() {
 	/*
 	Mascota a("Manchas", 5, "callejero", "5487L", "De la unet", 'F', "perro");
@@ -571,13 +614,14 @@ int main() {
 	archivoUsuario.insertar(u2);
 	*/
 	
-	listarMascotas();
-	listarUsuarios();
-	// listarAdopciones();
-	
+	// listarMascotas();
+	// listarUsuarios();
+	listarAdopciones();
 	// listarPorFecha();
 	// insertarAdopcion();
-	listaNegra();
+	// listaNegra();
+	
+	
 
     system("pause");
     return EXIT_SUCCESS;

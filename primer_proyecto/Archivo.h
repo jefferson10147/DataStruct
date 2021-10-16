@@ -24,7 +24,9 @@ class TArchivo:public fstream
     int  listarVarios(char *referencia);
     int  actualizar( T mod );
     int  buscar( T &bus);
+    int  buscarPos( T &bus, int pos);
     int  eliminar(T mod);
+    int  eliminarRegistro(T mod);
 };
 
 // Agrega un registro al final del archivo
@@ -55,6 +57,29 @@ int TArchivo<T>::buscar(T &bus)
          if (eof()) break;
          
          if (strcmp(buf.getRef(), bus.getRef()) == 0) {
+            enc= i;
+            bus= buf; // Copia todos los campos del registro localizado en el archivo en el parametro
+         }           //  pasado por referencia
+ }
+ close();
+ return enc; // Devuelve -1 si no lo encontro o el numero de registro o posicion relativa del reg
+}
+
+template <class T>
+int TArchivo<T>::buscarPos(T &bus, int pos)
+{
+ int enc, i;
+ open(nom, ios::binary | ios::in);
+ if ( fail() || bad() )
+ return -2; // Valor de error abriendo el archivo
+ enc=i=-1;
+ while(enc==-1)
+ {
+         i++;
+         read((char *)&buf, sizeof(buf));
+         if (eof()) break;
+         
+         if (i == pos) {
             enc= i;
             bus= buf; // Copia todos los campos del registro localizado en el archivo en el parametro
          }           //  pasado por referencia
@@ -174,6 +199,30 @@ int TArchivo<T>::eliminar(T mod){
 								read((char *)&buf, sizeof(buf));
 								if(eof()) break;
 								if(strcmp(mod.getRef(), buf.getRef()) != 0){
+							          aux.write((char *)&buf,sizeof(buf));		
+								}
+		}
+		close();
+		aux.close();
+		remove(nom);
+		rename("temp.dat",nom);
+	}
+	return enc;
+}
+
+template <class T>
+int TArchivo<T>::eliminarRegistro(T mod){         
+	int enc=buscar(mod);
+	fstream aux;
+	aux.open("temp.dat",ios::binary | ios::out);		
+	if ( aux.fail() || aux.bad() )	return -2;
+	if ( enc>=0 ){
+		open(nom, ios::binary | ios::in);
+		if ( fail() || bad() )	return -2;
+		while(true){
+								read((char *)&buf, sizeof(buf));
+								if(eof()) break;
+								if(strcmp(mod.getRegistro(), buf.getRegistro()) != 0){
 							          aux.write((char *)&buf,sizeof(buf));		
 								}
 		}
