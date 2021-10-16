@@ -118,10 +118,134 @@ class Adopcion
 	
 };
 
+
 TArchivo<Mascota> archivoMascota((char*)"mascota.dat");
 TArchivo<Usuario> archivoUsuario((char*)"usuario.dat");
 TArchivo<Adopcion> archivoAdopcion((char*)"adopcion.dat");
 
+
+void insertarMascota(){
+	char nom[30];
+    char raza[30];
+    char codigo[30];
+    char descripcion[255];
+    char sexo;
+    int  edad;
+    char animal[30];
+    
+	cout << "Ingrese el nombre: ";
+	cin.sync();
+	cin.getline (nom, 30, '\n');
+	
+	cout << "Ingrese la raza: ";
+	cin.sync();
+	cin.getline (raza, 30, '\n');
+	
+	cout << "Ingrese el codigo: ";
+	cin.sync();
+	cin.getline (codigo, 30, '\n');
+	
+	cout << "Ingrese la descripcion: ";
+	cin.sync();
+	cin.getline (descripcion, 255, '\n');
+	
+	cout << "Ingrese el sexo (F/M) de la mascota:";
+	cin >> sexo;
+	
+	cout << "Ingrese la edad: ";
+	cin >> edad;
+	
+	cout << "Ingrese el tipo de animal: ";
+	cin.sync();
+	cin.getline (animal, 30, '\n');
+	
+	Mascota nuevaMascota(nom, edad, raza, codigo, descripcion, sexo, animal);
+	
+	if (archivoMascota.insertar(nuevaMascota))
+		cout << endl << endl << "Mascota regitrada con exito :)" << endl << endl;
+	else
+		cout << endl << endl << "Ha ocurrido un error al registar la mascota :(" << endl << endl;
+		
+	system("pause");
+}
+
+
+void insertarUsuario(){
+	char cedula[15];
+	char nombre[30];
+	char estado[30];
+	char ciudad[30];
+	char direccion[30];
+	char telefono[30];
+	int edad;
+	
+	cout << "Ingrese la cedula: ";
+	cin.sync();
+	cin.getline (cedula, 15, '\n');
+	
+	cout << "Ingrese el nombre: ";
+	cin.sync();
+	cin.getline (nombre, 30, '\n');
+	
+	cout << "Ingrese el estado: ";
+	cin.sync();
+	cin.getline (estado, 30, '\n');
+	
+	cout << "Ingrese la ciudad: ";
+	cin.sync();
+	cin.getline (ciudad, 30, '\n');
+	
+	cout << "Ingrese la direccion: ";
+	cin.sync();
+	cin.getline (direccion, 30, '\n');
+	
+	cout << "Ingrese el telefono: ";
+	cin.sync();
+	cin.getline (telefono, 30, '\n');
+	
+	cout << "Ingrese la edad: ";
+	cin >> edad;
+	
+	Usuario nuevoUsuario(cedula, nombre, estado, ciudad, direccion, telefono, edad);
+	
+	if (archivoUsuario.insertar(nuevoUsuario))
+		cout << endl << endl << "Usuario ingresado con exito :)" << endl << endl;
+	else
+		cout << endl << endl << "Ha ocurrido un problema ingresando usuario :(" << endl << endl;
+		
+	system("pause");
+}
+
+
+void ingresarAdopcion(){
+	char cedula[30];
+	char codigo[30];
+	char fecha[15];
+	
+	cout << "Ingrese la cedula: ";
+	cin.sync();
+	cin.getline (cedula, 30, '\n');
+	
+	cout << "Ingrese el codigo: ";
+	cin.sync();
+	cin.getline (codigo, 30, '\n');
+	
+	cout << "Ingrese la fecha: ";
+	cin.sync();
+	cin.getline (fecha, 15, '\n');
+	
+	Adopcion nuevaAdopcion(cedula, codigo, fecha);
+	
+	if(archivoAdopcion.insertar(nuevaAdopcion)){
+		cout << endl << endl << "Adopcion registrada con exito ;)" << endl << endl;
+		numeroDeRegistros++;
+	}else
+		cout << endl << endl << "Ha ocurrido un error :(" << endl << endl;
+	
+		
+	
+	system("pause");
+}
 
 int main() {
 
@@ -166,6 +290,8 @@ int main() {
 	cout << "Listado de Adopciones" << endl;
 	archivoAdopcion.listar();
 	cout << endl << endl;
+
+
 	
 	cout << endl;
     system("pause");
