@@ -42,6 +42,7 @@ class Mascota
 		char *getRaza(){ return raza; }
 		char *getTipo() { return animal; }
 		bool getBandera(){ return disponibleParaAdoptar; }
+		bool getEsApto(){ return disponibleParaAdoptar; }
 		
         int  getEdad() { return edad; }
         void mostrar(){ cout << getRef() << " " << nom << " " << edad << " " << animal << " " << descripcion << endl; }
@@ -81,7 +82,7 @@ class Usuario
 	
 	public: 
 		Usuario() { }
-		bool getBandera(){ return esApto; }
+		bool getBandera(){ return esApto && numeroDeAdopciones < 3; }
 		
 		Usuario(char *ci, char *n, char *e, char *c, char *d, char *t, int edad){
 			strcpy(cedula, ci);
@@ -105,6 +106,8 @@ class Usuario
 		
 		void mostrar(){ 
 			cout << nombre << " " << edad << " " << telefono << " " << cedula << " Numero de adopciones: " << numeroDeAdopciones << endl;
+			if (esApto)
+				cout << "El usuario  es apto" << endl << endl;
 		}
 		
 		void setEsApto(bool esApto){
@@ -176,6 +179,12 @@ class Adopcion
 		char *getRef(){
 			return fecha;
 		}
+		
+		bool getBandera(){
+			return (bool)registro;
+		}
+		
+		bool getEsApto(){ return 0; }
 };
 
 
@@ -330,7 +339,7 @@ void insertarAdopcion(){
 	
 	
 	if((archivoMascota.buscar(mascotaAdoptar) >= 0) && (archivoUsuario.buscar(personaAdoptar) >= 0)){
-		if (mascotaAdoptar.getDisponibilidad() && personaAdoptar.getEsApto() && personaAdoptar.getNumeroDeAdopciones() <= 3){
+		if (mascotaAdoptar.getDisponibilidad() && personaAdoptar.getEsApto() && personaAdoptar.getNumeroDeAdopciones() < 3){
 			cout << "Ingrese la fecha: ";
 			cin.sync();
 			cin.getline (fecha, 15, '\n');
@@ -538,6 +547,13 @@ void listarPorFecha(){
 	archivoAdopcion.listarVarios(fecha);
 }
 
+
+void listaNegra(){
+	cout << "Imprimiendo la lista negra de usuarios..." << endl;
+	archivoUsuario.listarNoAptos();
+}
+
+
 int main() {
 	/*
 	Mascota a("Manchas", 5, "callejero", "5487L", "De la unet", 'F', "perro");
@@ -557,9 +573,11 @@ int main() {
 	
 	listarMascotas();
 	listarUsuarios();
-	listarAdopciones();
+	// listarAdopciones();
 	
-	listarPorFecha();
+	// listarPorFecha();
+	// insertarAdopcion();
+	listaNegra();
 
     system("pause");
     return EXIT_SUCCESS;
