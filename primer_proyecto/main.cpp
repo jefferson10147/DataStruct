@@ -378,16 +378,10 @@ void actualizarUsuario(){
 		
 	system("pause");
 }
+
+
 int main() {
-/*	
-	insertarMascota();  
-	insertarUsuario();
-	insertarAdopcion();
-*/
-	listarUsuarios();
-	
-	actualizarUsuario();
-	
+
 	listarMascotas();
 	listarUsuarios();
 	listarAdopciones();
