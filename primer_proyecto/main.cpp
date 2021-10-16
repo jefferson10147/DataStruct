@@ -18,6 +18,7 @@ class Mascota
         char sexo;
         int  edad;
         char animal[30];
+        bool disponibleParaAdoptar;
         
     public:
         Mascota() { }
@@ -30,6 +31,7 @@ class Mascota
 			edad = e;
 			strcpy(animal, tip);
 			sexo = s;
+			disponibleParaAdoptar = true;
 		}
 		
 		Mascota(char *c){
@@ -52,6 +54,14 @@ class Mascota
 		
 		void setEdad(int e){
 			edad = e;
+		}
+		
+		bool getDisponibilidad(){
+			return disponibleParaAdoptar;
+		}
+		
+		void setDisponibilidad(bool d){
+			disponibleParaAdoptar = d;
 		}
 };
 
