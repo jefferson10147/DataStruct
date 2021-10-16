@@ -92,7 +92,7 @@ class Usuario
 		}
 		
 		void mostrar(){ 
-			cout << nombre << " " << edad << " " << telefono << endl;
+			cout << nombre << " " << edad << " " << telefono << " " << cedula << endl;
 		}
 		
 		void setEsApto(bool esApto){
@@ -399,13 +399,29 @@ void eliminarMascota(){
 }
 
 
+void eliminarUsuario(){
+	char cedula[15];
+	
+	cout << "Ingrese la cedula del usuario que desea eliminar de los registros:";
+	cin.sync();
+	cin.getline (cedula, 15, '\n');
+	
+	Usuario usuarioEliminar(cedula);
+	cout << usuarioEliminar.getRef() << " Es la cedula jeje " << endl << endl;
+	
+	if(archivoUsuario.eliminar(usuarioEliminar) >= 0)
+		cout << "El usuario ha sido eliminado de los registros ..." << endl << endl;
+	else
+		cout << "Ha ocurrido un error al eliminar el usuario ..." << endl << endl;
+}
+
 int main() {
 
-	listarMascotas();
+	listarUsuarios();
 
-	eliminarMascota();
+	eliminarUsuario();
 	
-	listarMascotas();
+	listarUsuarios();
 
 	cout << endl;
     system("pause");
