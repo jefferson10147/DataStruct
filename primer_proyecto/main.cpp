@@ -41,6 +41,7 @@ class Mascota
 		char *getCodigo(){ return codigo; }
 		char *getRaza(){ return raza; }
 		char *getTipo() { return animal; }
+		bool getBandera(){ return disponibleParaAdoptar; }
 		
         int  getEdad() { return edad; }
         void mostrar(){ cout << getRef() << " " << nom << " " << edad << " " << animal << " " << descripcion << endl; }
@@ -80,6 +81,8 @@ class Usuario
 	
 	public: 
 		Usuario() { }
+		bool getBandera(){ return esApto; }
+		
 		Usuario(char *ci, char *n, char *e, char *c, char *d, char *t, int edad){
 			strcpy(cedula, ci);
 			strcpy(nombre, n);
@@ -114,6 +117,10 @@ class Usuario
 		
 		int getNumeroDeAdopciones(){
 			return numeroDeAdopciones;
+		}
+		
+		void setNumeroAdopcionesACero(){
+			numeroDeAdopciones = 0;
 		}
 		
 		void aumentarNumeroAdopciones(){
@@ -165,6 +172,10 @@ class Adopcion
 		void mostrar(){ 
 			cout << cedula << " " << codigo << " " << fecha << endl;
 		}		
+		
+		char *getRef(){
+			return fecha;
+		}
 };
 
 
@@ -347,13 +358,17 @@ void insertarAdopcion(){
 
 
 void listarMascotas(){
+	cout << "Mascotas" << endl;
 	archivoMascota.listar();
 	cout << endl << endl;
+	
+	cout << "Disponibles para adoptar" << endl;
+	archivoMascota.listarAptos();
 }
 
 
 void listarUsuarios(){
-	archivoUsuario.listar();
+	archivoUsuario.listarAptos();
 	cout << endl << endl;
 }
 
@@ -513,6 +528,16 @@ void consultarDatosUsuario(){
 }
 
 
+void listarPorFecha(){
+	char fecha[15];
+	
+	cout << "Ingrese la fecha como referencia: ";
+	cin.sync();
+	cin.getline (fecha, 15, '\n');
+	
+	archivoAdopcion.listarVarios(fecha);
+}
+
 int main() {
 	/*
 	Mascota a("Manchas", 5, "callejero", "5487L", "De la unet", 'F', "perro");
@@ -534,12 +559,7 @@ int main() {
 	listarUsuarios();
 	listarAdopciones();
 	
-
-	insertarAdopcion();
-	
-	listarAdopciones();
-	
-	
+	listarPorFecha();
 
     system("pause");
     return EXIT_SUCCESS;

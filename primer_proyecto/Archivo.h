@@ -19,6 +19,8 @@ class TArchivo:public fstream
     void reset()     { open(nom, ios::out | ios::binary ); close(); }
     int  insertar( T nue );
     int  listar();
+    int  listarAptos();
+    int  listarVarios(char *referencia);
     int  actualizar( T mod );
     int  buscar( T &bus);
     int  eliminar(T mod);
@@ -75,6 +77,44 @@ int TArchivo<T>::listar()
  						if (eof()) break;
  						i++;
  						buf.mostrar();
+ }
+ close();
+ return i;  //retorna la cantidad de datos guardados en el archivo
+}
+
+template <class T>
+int TArchivo<T>::listarAptos()
+{
+ open(nom, ios::binary | ios::in);
+ int i=0;
+ if ( fail() || bad() )
+ return -2;
+ // buf.hacer_encabezado();
+ while(true){
+	read((char *)&buf, sizeof(buf));
+ 	if (eof()) break;
+ 	i++;
+ 	
+ 	if (buf.getBandera()) buf.mostrar();
+ }
+ close();
+ return i;  //retorna la cantidad de datos guardados en el archivo
+}
+
+template <class T>
+int TArchivo<T>::listarVarios(char *referencia)
+{
+ open(nom, ios::binary | ios::in);
+ int i=0;
+ if ( fail() || bad() )
+ return -2;
+ // buf.hacer_encabezado();
+ while(true)
+ {
+	read((char *)&buf, sizeof(buf));
+ 	if (eof()) break;
+ 	i++;
+ 	if (strcmp(buf.getRef(), referencia) == 0) buf.mostrar();
  }
  close();
  return i;  //retorna la cantidad de datos guardados en el archivo
