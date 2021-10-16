@@ -50,7 +50,8 @@ int TArchivo<T>::buscar(T &bus)
          i++;
          read((char *)&buf, sizeof(buf));
          if (eof()) break;
-         if (buf.getRef()==bus.getRef()) {
+         
+         if (strcmp(buf.getRef(), bus.getRef()) == 0) {
             enc= i;
             bus= buf; // Copia todos los campos del registro localizado en el archivo en el parametro
          }           //  pasado por referencia
@@ -67,7 +68,7 @@ int TArchivo<T>::listar()
  int i=0;
  if ( fail() || bad() )
  return -2;
- buf.hacer_encabezado();
+ // buf.hacer_encabezado();
  while(true)
  {
 						read((char *)&buf, sizeof(buf));
@@ -84,7 +85,7 @@ template <class T>
 int TArchivo<T>::actualizar(T mod)
 {
  T aux=mod;
- int enc=Buscar(aux);
+ int enc=buscar(aux);
  if ( enc>=0 )
  {
  open(nom, ios::binary | ios::in | ios::out);

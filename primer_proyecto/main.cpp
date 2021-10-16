@@ -31,6 +31,10 @@ class Mascota
 			strcpy(animal, tip);
 			sexo = s;
 		}
+		
+		Mascota(char *c){
+			strcpy(codigo, c);
+		}
         
 		char *getNom() { return nom; }
 		char *getCodigo(){ return codigo; }
@@ -38,7 +42,17 @@ class Mascota
 		char *getTipo() { return animal; }
 		
         int  getEdad() { return edad; }
-        void mostrar(){ cout << nom << " " << edad << " " << animal << endl; }
+        void mostrar(){ cout << getRef() << " con cambio eh " << nom << " " << edad << " " << animal << " " << descripcion << endl; }
+        
+		char *getRef(){ return codigo; }     
+        
+        void setDescripcion(char *d){
+        	strcpy(descripcion, d);
+		}
+		
+		void setEdad(int e){
+			edad = e;
+		}
 };
 
 
@@ -69,6 +83,10 @@ class Usuario
 			numeroDeAdopciones = 0;
 		}
 		
+		Usuario(char *ci){
+			strcpy(cedula, ci);
+		}
+		
 		char *getRef(){
 			return cedula;
 		}
@@ -92,6 +110,26 @@ class Usuario
 		void aumentarNumeroAdopciones(){
 			numeroDeAdopciones ++;
 		}
+		
+		void setEstado(char *e){
+			strcpy(estado, e);
+		}
+		
+		void setCiudad(char *c){
+			strcpy(ciudad, c);
+		}
+		
+		void setDireccion(char *d){
+			strcpy(direccion, d);
+		}
+		
+		void setTelefono(char *t){
+			strcpy(telefono, t);
+		}
+		
+		void setEdad(int e){
+			edad = e;
+		}
 };
 
 class Adopcion
@@ -100,22 +138,23 @@ class Adopcion
 		char cedula[30];
 		char codigo[30];
 		char fecha[15];
+		int registro;
 	
 	public:
 		static int totalMascotasAdoptadas;
 		
 		Adopcion(){ }
 		
-		Adopcion(char *ci, char *c, char *f){
+		Adopcion(char *ci, char *c, char *f, int r){
 			strcpy(cedula, ci);
 			strcpy(codigo, c);
 			strcpy(fecha, f);
+			registro = r;
 		}
 			
 		void mostrar(){ 
 			cout << cedula << " " << codigo << " " << fecha << endl;
-		}
-	
+		}		
 };
 
 
@@ -234,11 +273,10 @@ void insertarAdopcion(){
 	cin.sync();
 	cin.getline (fecha, 15, '\n');
 	
-	Adopcion nuevaAdopcion(cedula, codigo, fecha);
+	Adopcion nuevaAdopcion(cedula, codigo, fecha, numeroDeRegistros++);
 	
 	if(archivoAdopcion.insertar(nuevaAdopcion)){
 		cout << endl << endl << "Adopcion registrada con exito ;)" << endl << endl;
-		numeroDeRegistros++;
 	}else
 		cout << endl << endl << "Ha ocurrido un error :(" << endl << endl;
 	
@@ -264,11 +302,91 @@ void listarAdopciones(){
 }
 
 
-int main() {
+void actualizarMascota(){
+	char descripcion[255];
+	char codigo[30];
+	int edad;
 	
-	insertarMascota();
+	cout << "Ingrese el codigo de la mascota que desea actualizar:";
+	cin.sync();
+	cin.getline (codigo, 30, '\n');
+	
+	Mascota mascotaActualizar(codigo);
+	
+	if(archivoMascota.buscar(mascotaActualizar) >= 0){
+		cout << "Ingrese la descripcion: ";
+		cin.sync();
+		cin.getline (descripcion, 255, '\n');
+	
+		cout << "Ingrese la edad: ";
+		cin >> edad;
+		
+		mascotaActualizar.setDescripcion(descripcion);
+		mascotaActualizar.setEdad(edad);
+		
+		archivoMascota.actualizar(mascotaActualizar);
+	}else
+		cout << "Codigo de mascota incorrecto ... " << endl << endl;
+	
+	system("pause");
+}
+
+
+void actualizarUsuario(){
+	char cedula[15];
+	char estado[30];
+	char ciudad[30];
+	char direccion[30];
+	char telefono[30];
+	int edad;
+	
+	cout << "Ingrese la cedula del usuario que desea actualizar:";
+	cin.sync();
+	cin.getline (cedula, 15, '\n');
+	
+	Usuario usuarioActualizar(cedula);
+	
+	if(archivoUsuario.buscar(usuarioActualizar) >= 0){
+		cout << "Ingrese el nuevo estado donde reside: ";
+		cin.sync();
+		cin.getline (estado, 30, '\n');
+	
+		cout << "Ingrese la nueva ciudad donde reside: ";
+		cin.sync();
+		cin.getline (ciudad, 30, '\n');
+	
+		cout << "Ingrese la nueva direccion donde reside: ";
+		cin.sync();
+		cin.getline (direccion, 30, '\n');
+	
+		cout << "Ingrese el nuevo telefono que posee: ";
+		cin.sync();
+		cin.getline (telefono, 30, '\n');
+	
+		cout << "Ingrese la edad: ";
+		cin >> edad;
+		
+		usuarioActualizar.setEstado(estado);
+		usuarioActualizar.setCiudad(ciudad);
+		usuarioActualizar.setDireccion(direccion);
+		usuarioActualizar.setTelefono(telefono);
+		usuarioActualizar.setEdad(edad);
+		
+		archivoUsuario.actualizar(usuarioActualizar);
+	}else
+		cout << "Usuario no encontrado ... " << endl;
+		
+	system("pause");
+}
+int main() {
+/*	
+	insertarMascota();  
 	insertarUsuario();
 	insertarAdopcion();
+*/
+	listarUsuarios();
+	
+	actualizarUsuario();
 	
 	listarMascotas();
 	listarUsuarios();
