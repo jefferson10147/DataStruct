@@ -415,13 +415,49 @@ void eliminarUsuario(){
 		cout << "Ha ocurrido un error al eliminar el usuario ..." << endl << endl;
 }
 
-int main() {
 
-	listarUsuarios();
-
-	eliminarUsuario();
+void consultarDatosMascota(){
+	char codigo[30];
 	
+	cout << "Ingrese el codigo de la mascota que desea consultar datos:";
+	cin.sync();
+	cin.getline (codigo, 30, '\n');
+	
+	Mascota mascotaConsultar(codigo);
+	
+	if(archivoMascota.buscar(mascotaConsultar) >= 0)
+		mascotaConsultar.mostrar();
+	else
+		cout << "La mascota no ha sido encontrada..." << endl << endl;
+		
+	system("pause");	
+}
+
+
+void consultarDatosUsuario(){
+	char cedula[15];
+	
+	cout << "Ingrese la cedula del usuario que desea consultar:";
+	cin.sync();
+	cin.getline (cedula, 15, '\n');
+	
+	Usuario usuarioConsultar(cedula);
+	
+	if(archivoUsuario.buscar(usuarioConsultar) >= 0)
+		usuarioConsultar.mostrar();
+	else
+		cout << "El usuario no ha sido encontrado..." << endl << endl;
+		
+	system("pause");
+}
+
+
+int main() {
+	listarMascotas();
 	listarUsuarios();
+
+	consultarDatosMascota();
+	consultarDatosUsuario();
 
 	cout << endl;
     system("pause");
