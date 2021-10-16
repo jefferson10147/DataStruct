@@ -102,7 +102,7 @@ class Usuario
 		}
 		
 		void mostrar(){ 
-			cout << nombre << " " << edad << " " << telefono << " " << cedula << endl;
+			cout << nombre << " " << edad << " " << telefono << " " << cedula << " Numero de adopciones: " << numeroDeAdopciones << endl;
 		}
 		
 		void setEsApto(bool esApto){
@@ -280,16 +280,43 @@ void insertarAdopcion(){
 	cin.sync();
 	cin.getline (codigo, 30, '\n');
 	
-	cout << "Ingrese la fecha: ";
-	cin.sync();
-	cin.getline (fecha, 15, '\n');
+	Mascota mascotaAdoptar(codigo);
+	Usuario personaAdoptar(cedula);
 	
-	Adopcion nuevaAdopcion(cedula, codigo, fecha, numeroDeRegistros++);
 	
-	if(archivoAdopcion.insertar(nuevaAdopcion)){
-		cout << endl << endl << "Adopcion registrada con exito ;)" << endl << endl;
+	
+	if((archivoMascota.buscar(mascotaAdoptar) >= 0) && (archivoUsuario.buscar(personaAdoptar) >= 0)){
+		cout << "el primer if :3"<<endl;
+		cout << "DISPONIBILIDAD DE MASCOTA EH"<<mascotaAdoptar.getDisponibilidad()<<endl;
+		cout << "ES APTO"<<personaAdoptar.getEsApto()<<endl;
+		cout <<"nuero de adopciones "<<personaAdoptar.getNumeroDeAdopciones();
+		
+		if (mascotaAdoptar.getDisponibilidad() && personaAdoptar.getEsApto() && personaAdoptar.getNumeroDeAdopciones() <= 3){
+			cout << "Ingrese la fecha: ";
+			cin.sync();
+			cin.getline (fecha, 15, '\n');
+		
+			Adopcion nuevaAdopcion(cedula, codigo, fecha, numeroDeRegistros++);
+		
+			if(archivoAdopcion.insertar(nuevaAdopcion)){
+				cout << endl << endl << "Adopcion registrada con exito ;)" << endl << endl;
+				personaAdoptar.aumentarNumeroAdopciones();
+				mascotaAdoptar.setDisponibilidad(false);
+				
+				archivoMascota.actualizar(mascotaAdoptar);
+				archivoUsuario.actualizar(personaAdoptar);	
+				archivoAdopcion.insertar(nuevaAdopcion);
+			}else
+				cout << endl << endl << "Ha ocurrido un error :(" << endl << endl;		
+		}else
+			cout<<"no se esta cumpliendo el segundo jeje"<<endl;
 	}else
-		cout << endl << endl << "Ha ocurrido un error :(" << endl << endl;
+		cout << "Ha introducido los datos incorrectos..." << endl << endl;
+		
+	
+	
+	
+
 	
 	system("pause");
 }
@@ -463,11 +490,22 @@ void consultarDatosUsuario(){
 
 
 int main() {
+	Mascota a("Manchas", 5, "callejero", "5487L", "De la unet", 'F', "perro");
+	Mascota a1("Coqui", 8, "Labrador", "5498CM", "De la unet", 'M', "perro");
+	Mascota a2("Wilson", 7, "Gato rubio", "8789LO", "De noruega", 'M', "gato");
+	archivoMascota.insertar(a);
+	archivoMascota.insertar(a1);
+	archivoMascota.insertar(a2);
+	
+	
 	listarMascotas();
 	listarUsuarios();
+	listarAdopciones();
+	
 
-	consultarDatosMascota();
-	consultarDatosUsuario();
+	insertarAdopcion();
+	
+	listarAdopciones();
 
 	cout << endl;
     system("pause");
