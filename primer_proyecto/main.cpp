@@ -1,12 +1,11 @@
 #include <iostream>
 #include <string.h>
+#include <fstream>
 
 #include "Archivo.h"
 
 using namespace std;
 
-
-int numeroDeRegistros = 0;
 
 class Mascota
 {
@@ -174,6 +173,39 @@ TArchivo<Usuario> archivoUsuario((char*)"usuario.dat");
 TArchivo<Adopcion> archivoAdopcion((char*)"adopcion.dat");
 
 
+int calcularNumeroDeAdopciones(){
+	fstream archivo;
+	int numeroRegistros = 0;
+	
+	archivo.open("numero_registros.txt", ios::in);
+	
+	if (!archivo) {
+		cout << "Error en el archivo de registros..." << endl << endl;
+		system("pause");
+	}else
+		archivo >> numeroRegistros;
+	
+	archivo.close();
+	
+	return numeroRegistros;
+}
+
+
+void aumentarNumeroDeAdopciones(int numeroRegistros){
+	fstream archivo;
+	
+	archivo.open("numero_registros.txt", ios::out);
+	
+	if (!archivo) {
+		cout << "Error en el archivo de registros..." << endl << endl;
+		system("pause");
+	}else
+		archivo << numeroRegistros;
+
+	archivo.close();
+}
+
+
 void insertarMascota(){
 	char nom[30];
     char raza[30];
@@ -271,6 +303,7 @@ void insertarAdopcion(){
 	char cedula[30];
 	char codigo[30];
 	char fecha[15];
+	int numeroDeRegistros;
 	
 	cout << "Ingrese la cedula: ";
 	cin.sync();
@@ -286,38 +319,29 @@ void insertarAdopcion(){
 	
 	
 	if((archivoMascota.buscar(mascotaAdoptar) >= 0) && (archivoUsuario.buscar(personaAdoptar) >= 0)){
-		cout << "el primer if :3"<<endl;
-		cout << "DISPONIBILIDAD DE MASCOTA EH"<<mascotaAdoptar.getDisponibilidad()<<endl;
-		cout << "ES APTO"<<personaAdoptar.getEsApto()<<endl;
-		cout <<"nuero de adopciones "<<personaAdoptar.getNumeroDeAdopciones();
-		
 		if (mascotaAdoptar.getDisponibilidad() && personaAdoptar.getEsApto() && personaAdoptar.getNumeroDeAdopciones() <= 3){
 			cout << "Ingrese la fecha: ";
 			cin.sync();
 			cin.getline (fecha, 15, '\n');
-		
+			
+			numeroDeRegistros = calcularNumeroDeAdopciones();
 			Adopcion nuevaAdopcion(cedula, codigo, fecha, numeroDeRegistros++);
+			aumentarNumeroDeAdopciones(numeroDeRegistros++);
 		
 			if(archivoAdopcion.insertar(nuevaAdopcion)){
-				cout << endl << endl << "Adopcion registrada con exito ;)" << endl << endl;
+				cout << endl << endl << "Adopcion registrada con exito ;)..." << endl << endl;
 				personaAdoptar.aumentarNumeroAdopciones();
 				mascotaAdoptar.setDisponibilidad(false);
 				
 				archivoMascota.actualizar(mascotaAdoptar);
 				archivoUsuario.actualizar(personaAdoptar);	
-				archivoAdopcion.insertar(nuevaAdopcion);
 			}else
-				cout << endl << endl << "Ha ocurrido un error :(" << endl << endl;		
+				cout << endl << endl << "Ha ocurrido un error :(..." << endl << endl;		
 		}else
-			cout<<"no se esta cumpliendo el segundo jeje"<<endl;
+			cout << "No es posible realizar la adopcion para esta persona..." << endl << endl;
 	}else
 		cout << "Ha introducido los datos incorrectos..." << endl << endl;
 		
-	
-	
-	
-
-	
 	system("pause");
 }
 
@@ -490,6 +514,7 @@ void consultarDatosUsuario(){
 
 
 int main() {
+	/*
 	Mascota a("Manchas", 5, "callejero", "5487L", "De la unet", 'F', "perro");
 	Mascota a1("Coqui", 8, "Labrador", "5498CM", "De la unet", 'M', "perro");
 	Mascota a2("Wilson", 7, "Gato rubio", "8789LO", "De noruega", 'M', "gato");
@@ -497,6 +522,13 @@ int main() {
 	archivoMascota.insertar(a1);
 	archivoMascota.insertar(a2);
 	
+	Usuario u("V26493551", "Jefferson", "Tachira", "Tariba", "Calle 3", "+58 412 54602929", 22);
+	Usuario u1("V89754211", "Pedro", "Tachira", "Michelena", "Calle 8", "+58 424 59848578", 25);
+	Usuario u2("E98785485", "Milagros", "Norte de Santader", "Cucuta", "Calle 7", "+58 412 54602929", 23);
+	archivoUsuario.insertar(u);
+	archivoUsuario.insertar(u1);
+	archivoUsuario.insertar(u2);
+	*/
 	
 	listarMascotas();
 	listarUsuarios();
@@ -506,8 +538,9 @@ int main() {
 	insertarAdopcion();
 	
 	listarAdopciones();
+	
+	
 
-	cout << endl;
     system("pause");
     return EXIT_SUCCESS;
 }
