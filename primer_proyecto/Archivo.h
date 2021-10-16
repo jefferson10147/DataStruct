@@ -101,7 +101,7 @@ int TArchivo<T>::actualizar(T mod)
 // Elimina el registro deseado del archivo
 template <class T>
 int TArchivo<T>::eliminar(T mod){         
-	int enc=Buscar(mod);
+	int enc=buscar(mod);
 	fstream aux;
 	aux.open("temp.dat",ios::binary | ios::out);		
 	if ( aux.fail() || aux.bad() )	return -2;
@@ -111,7 +111,7 @@ int TArchivo<T>::eliminar(T mod){
 		while(true){
 								read((char *)&buf, sizeof(buf));
 								if(eof()) break;
-								if(mod.getRef()!=buf.getRef()){
+								if(strcmp(mod.getRef(), buf.getRef()) != 0){
 							          aux.write((char *)&buf,sizeof(buf));		
 								}
 		}
