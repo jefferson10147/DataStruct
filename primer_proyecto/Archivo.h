@@ -102,6 +102,7 @@ int TArchivo<T>::listar()
 						read((char *)&buf, sizeof(buf));
  						if (eof()) break;
  						i++;
+ 						cout << i << " ";
  						buf.mostrar();
  }
  close();

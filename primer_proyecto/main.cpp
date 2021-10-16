@@ -190,7 +190,7 @@ class Adopcion
 		}
 		
 		void mostrar(){ 
-			cout << registro << " " << cedula << " " << codigo << " " << fecha << endl;
+			cout << cedula << " " << codigo << " " << fecha << endl;
 		}		
 		
 		int getRegistro(){ return registro; }
@@ -576,6 +576,7 @@ void eliminarDeterminadoRegistro(){
 	
 	cout << "Ingrese la posicion de la adopcion que desea eliminar: ";
 	cin >> posicion;
+	posicion --;
 	
 	Adopcion registroEspecifico(posicion);
 	
@@ -614,12 +615,14 @@ int main() {
 	archivoUsuario.insertar(u2);
 	*/
 	
-	// listarMascotas();
-	// listarUsuarios();
+	listarMascotas();
+	listarUsuarios();
 	listarAdopciones();
 	// listarPorFecha();
 	// insertarAdopcion();
 	// listaNegra();
+	eliminarDeterminadoRegistro();
+	listarAdopciones();
 	
 	
 
