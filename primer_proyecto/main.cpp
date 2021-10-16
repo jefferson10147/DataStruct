@@ -42,7 +42,7 @@ class Mascota
 		char *getTipo() { return animal; }
 		
         int  getEdad() { return edad; }
-        void mostrar(){ cout << getRef() << " con cambio eh " << nom << " " << edad << " " << animal << " " << descripcion << endl; }
+        void mostrar(){ cout << getRef() << " " << nom << " " << edad << " " << animal << " " << descripcion << endl; }
         
 		char *getRef(){ return codigo; }     
         
@@ -131,6 +131,7 @@ class Usuario
 			edad = e;
 		}
 };
+
 
 class Adopcion
 {
@@ -380,11 +381,31 @@ void actualizarUsuario(){
 }
 
 
+void eliminarMascota(){
+	char codigo[30];
+	
+	cout << "Ingrese el codigo de la mascota que desea elimanar del registro:";
+	cin.sync();
+	cin.getline (codigo, 30, '\n');
+	
+	Mascota mascotaEliminar(codigo);
+	
+	if(archivoMascota.eliminar(codigo) >= 0)
+		cout << "La mascota ha sido eliminada de nuestros registros ..." << endl << endl;
+	else
+		cout << "Ha ocurrido un error tratando de eliminar la mascota ..."	<< endl << endl;
+		
+	system("pause");
+}
+
+
 int main() {
 
 	listarMascotas();
-	listarUsuarios();
-	listarAdopciones();
+
+	eliminarMascota();
+	
+	listarMascotas();
 
 	cout << endl;
     system("pause");
