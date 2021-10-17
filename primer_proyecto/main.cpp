@@ -45,7 +45,18 @@ class Mascota
 		bool getEsApto(){ return disponibleParaAdoptar; }
 		
         int  getEdad() { return edad; }
-        void mostrar(){ cout << getRef() << " " << nom << " " << edad << " " << animal << " " << descripcion << endl; }
+        
+        void hacerEncabezado(){
+			cout << "{Nombre}-{Raza}-{Codigo}-{Sexo}-{Edad}-{Animal}" << endl << endl;
+		}
+		
+        void mostrar(){ 
+			cout << "{" << nom << "}-{" << raza << "}-{" << codigo << "}-{" << sexo << "}-{" << edad << "}-{" << animal << "}" << endl;
+			cout << "{" << descripcion << "}" << endl;
+			
+			if (disponibleParaAdoptar)
+				cout << "Se encuentra disponible para adoptar..." << endl << endl;
+		}
         
 		char *getRef(){ return codigo; }     
         
@@ -104,10 +115,14 @@ class Usuario
 			return cedula;
 		}
 		
+		void hacerEncabezado(){
+			cout << "{Nombre}-{Edad}-{Telefono}-{Cedula}-{Direccion}-{Ciudad}-{Estado}" << endl << endl;
+		}
+		
 		void mostrar(){ 
-			cout << nombre << " " << edad << " " << telefono << " " << cedula << " Numero de adopciones: " << numeroDeAdopciones << endl;
+			cout << "{ "<< nombre << " }-{ " << edad << " }-{ " << telefono << " }-{ " << cedula << " }-{ " << direccion << " }-{ " << ciudad << " }-{ " << estado << " }" << endl;
 			if (esApto)
-				cout << "El usuario  es apto" << endl << endl;
+				cout << "El usuario  es apto para adoptar una mascota" << endl << "Numero de adopciones: " << numeroDeAdopciones << endl << endl;
 		}
 		
 		void setEsApto(bool esApto){
@@ -193,9 +208,13 @@ class Adopcion
 			return codigo;
 		}
 		
+		void hacerEncabezado(){
+			cout << "{Cedula}-{Codigo}-{Fecha}" << endl << endl;
+		}
+		
 		void mostrar(){ 
-			cout << cedula << " " << codigo << " " << fecha << endl;
-		}		
+			cout << "{" << cedula << "}-{" << codigo << "}-{" << fecha << "}" << endl << endl;
+		}		 
 		
 		int getRegistro(){ return registro; }
 		
@@ -388,24 +407,25 @@ void insertarAdopcion(){
 
 
 void listarMascotas(){
-	cout << "Mascotas" << endl;
-	archivoMascota.listar();
-	cout << endl << endl;
-	
-	cout << "Disponibles para adoptar" << endl;
+	cout << endl << "\t======Listado de mascotas disponibles para adoptar ======" << endl << endl;
 	archivoMascota.listarAptos();
+	system("pause");
 }
 
 
 void listarUsuarios(){
+	cout << endl << "\t======Listado de personas disponibles para adoptar===" << endl;
 	archivoUsuario.listarAptos();
 	cout << endl << endl;
+	system("pause");
 }
 
 
 void listarAdopciones(){
+	cout << endl << "\t======Listado de adopciones===" << endl;
 	archivoAdopcion.listar();
 	cout << endl << endl;
+	system("pause");
 }
 
 
@@ -513,12 +533,13 @@ void eliminarUsuario(){
 	cin.getline (cedula, 15, '\n');
 	
 	Usuario usuarioEliminar(cedula);
-	cout << usuarioEliminar.getRef() << " Es la cedula jeje " << endl << endl;
 	
 	if(archivoUsuario.eliminar(usuarioEliminar) >= 0)
 		cout << "El usuario ha sido eliminado de los registros ..." << endl << endl;
 	else
 		cout << "Ha ocurrido un error al eliminar el usuario ..." << endl << endl;
+		
+	system("pause");
 }
 
 
@@ -531,9 +552,10 @@ void consultarDatosMascota(){
 	
 	Mascota mascotaConsultar(codigo);
 	
-	if(archivoMascota.buscar(mascotaConsultar) >= 0)
+	if(archivoMascota.buscar(mascotaConsultar) >= 0){
+		mascotaConsultar.hacerEncabezado();
 		mascotaConsultar.mostrar();
-	else
+	}else
 		cout << "La mascota no ha sido encontrada..." << endl << endl;
 		
 	system("pause");	
@@ -549,9 +571,10 @@ void consultarDatosUsuario(){
 	
 	Usuario usuarioConsultar(cedula);
 	
-	if(archivoUsuario.buscar(usuarioConsultar) >= 0)
+	if(archivoUsuario.buscar(usuarioConsultar) >= 0){
+		usuarioConsultar.hacerEncabezado();
 		usuarioConsultar.mostrar();
-	else
+	}else
 		cout << "El usuario no ha sido encontrado..." << endl << endl;
 		
 	system("pause");
@@ -566,12 +589,14 @@ void listarPorFecha(){
 	cin.getline (fecha, 15, '\n');
 	
 	archivoAdopcion.listarVarios(fecha);
+	system("pause");
 }
 
 
 void listaNegra(){
 	cout << "Imprimiendo la lista negra de usuarios..." << endl;
 	archivoUsuario.listarNoAptos();
+	system("pause");
 }
 
 
@@ -634,39 +659,204 @@ void reportarUsuario(){
 }
 
 
+int menu(){
+	int opcion; 
+	
+	cout << "\t======Menu Principal======" << endl;
+	cout << "1. Menu Mascota" << endl;
+	cout << "2. Menu Usuario" << endl;
+	cout << "3. Menu Adopcion" << endl;
+	cout << "4. Salir" << endl;
+	cout << endl << "Su opcion: ";
+	cin >> opcion;
+	
+	return opcion;
+}
+
+
+void menuMascota(){
+	int opcion; 
+	bool band = false;
+	
+	while(true){
+		cout << "\t======Menu Mascota======" << endl;
+		cout << "1. Registro de Mascota" << endl;
+		cout << "2. Consultar datos" << endl;
+		cout << "3. Listado general de mascotas" << endl;
+		cout << "4. Actualizacion de una mascota" << endl;
+		cout << "5. Eliminacion de una mascota" << endl;
+		cout << "6. Volver al menu principal" << endl;
+		cout << endl << "Su opcion: ";
+		cin >> opcion;
+		
+		switch(opcion){
+			case 1:
+				insertarMascota();
+				break;
+			case 2:
+				consultarDatosMascota();
+				break;
+				
+			case 3:
+				listarMascotas();
+				break;
+				
+			case 4:
+				actualizarMascota();
+				break;
+				
+			case 5: 
+				eliminarMascota();
+				break;
+				
+			case 6:
+				band = true;
+				break;	
+				
+			default: 
+				cout << "opcion incorrecta.." << endl;
+				system("pause");	
+		}
+		system("cls");
+		if (band) break;
+	}
+}
+
+
+void menuUsuario(){
+	int opcion; 
+	bool band = false;
+	
+	while(true){
+		cout << "\t======Menu Usuario======" << endl;
+		cout << "1. Registro de Usuario" << endl;
+		cout << "2. Consultar datos" << endl;
+		cout << "3. Listado general de personas" << endl;
+		cout << "4. Actualizacion de un usuario" << endl;
+		cout << "5. Eliminacion de un usuario" << endl;
+		cout << "6. Reportar usuario como maltratador" << endl;
+		cout << "7. Volver al menu principal" << endl;
+		cout << endl << "Su opcion: ";
+		cin >> opcion;
+		
+		switch(opcion){
+			case 1:
+				insertarUsuario();
+				break;
+			case 2:
+				consultarDatosUsuario();
+				break;
+				
+				
+			case 3:
+				listarUsuarios();
+				break;
+				
+				
+			case 4:
+				actualizarUsuario();
+				break;
+				
+			case 5: 
+				eliminarUsuario();
+				break;
+				
+			case 6:
+				reportarUsuario();
+				break;
+				
+			case 7:
+				band = true;
+				break;	
+				
+			default: 
+				cout << "opcion incorrecta.." << endl;
+				system("pause");	
+		}
+		system("cls");
+		if (band) break;
+	}
+	
+}
+
+
+void menuAdopcion(){
+	int opcion; 
+	bool band = false;
+	
+	while(true){
+		cout << "\t======Menu Adopcion======" << endl;
+		cout << "1. Registro de Adopcion" << endl;
+		cout << "2. Consultar de Adopcion por fecha" << endl;
+		cout << "3. Listado general de Adopcion" << endl;
+		cout << "4. Eliminacion de una Adopcion por su numero de registro" << endl;
+		cout << "5. Lista negra" << endl;
+		cout << "6. Volver al menu principal" << endl;
+		cout << endl << "Su opcion: ";
+		cin >> opcion;
+		
+		switch(opcion){
+			case 1:
+				insertarAdopcion();
+				break;
+			case 2:
+				listarPorFecha();
+				break;
+				
+			case 3:
+				listarAdopciones();
+				break;
+				
+			case 4:
+				eliminarDeterminadoRegistro();
+				break;
+				
+			case 5: 
+				listaNegra();
+				break;
+				
+			case 6:
+				band = true;
+				break;	
+			
+			default: 
+				cout << "opcion incorrecta.." << endl;
+				system("pause");	
+		}
+		system("cls");
+		if (band) break;
+	}
+}
+
 int main() {
-	/*
-	Mascota a("Manchas", 5, "callejero", "5487L", "De la unet", 'F', "perro");
-	Mascota a1("Coqui", 8, "Labrador", "5498CM", "De la unet", 'M', "perro");
-	Mascota a2("Wilson", 7, "Gato rubio", "8789LO", "De noruega", 'M', "gato");
-	archivoMascota.insertar(a);
-	archivoMascota.insertar(a1);
-	archivoMascota.insertar(a2);
+	int opcion;
+	bool band = false;
 	
-	Usuario u("V26493551", "Jefferson", "Tachira", "Tariba", "Calle 3", "+58 412 54602929", 22);
-	Usuario u1("V89754211", "Pedro", "Tachira", "Michelena", "Calle 8", "+58 424 59848578", 25);
-	Usuario u2("E98785485", "Milagros", "Norte de Santader", "Cucuta", "Calle 7", "+58 412 54602929", 23);
-	archivoUsuario.insertar(u);
-	archivoUsuario.insertar(u1);
-	archivoUsuario.insertar(u2);
-	*/
-	
-	listarMascotas();
-	listarUsuarios();
-	listarAdopciones();
-	
-	insertarAdopcion();
-	reportarUsuario();
-	listarMascotas();
-	listarUsuarios();
-	listarAdopciones();
-	// listarPorFecha();
-	// insertarAdopcion();
-	// listaNegra();
-	//eliminarDeterminadoRegistro();
-	//listarAdopciones();
-	
-	
+	while(true){
+		opcion = menu();
+		
+		switch(opcion){
+			case 1:
+				menuMascota();
+				break;
+			case 2:
+				menuUsuario();
+				break;
+			case 3:
+				menuAdopcion();
+				break;
+			case 4: 
+				band = true;
+				break;
+				
+			default: 
+				cout << "opcion incorrecta.." << endl;
+				system("pause");
+		}
+		system("cls");
+		if (band) break;
+		
+	}
 
     system("pause");
     return EXIT_SUCCESS;

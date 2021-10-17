@@ -98,7 +98,7 @@ int TArchivo<T>::listar()
  int i=0;
  if ( fail() || bad() )
  return -2;
- // buf.hacer_encabezado();
+ buf.hacerEncabezado();
  while(true)
  {
 						read((char *)&buf, sizeof(buf));
@@ -118,7 +118,7 @@ int TArchivo<T>::listarAptos(bool noAptos)
  int i=0;
  if ( fail() || bad() )
  return -2;
- // buf.hacer_encabezado();
+ buf.hacerEncabezado();
  while(true){
 	read((char *)&buf, sizeof(buf));
  	if (eof()) break;
@@ -138,7 +138,7 @@ int TArchivo<T>::listarNoAptos()
  int i=0;
  if ( fail() || bad() )
  return -2;
- // buf.hacer_encabezado();
+ buf.hacerEncabezado();
  while(true){
 	read((char *)&buf, sizeof(buf));
  	if (eof()) break;
@@ -158,7 +158,7 @@ int TArchivo<T>::listarVarios(char *referencia)
  int i=0;
  if ( fail() || bad() )
  return -2;
- // buf.hacer_encabezado();
+ buf.hacerEncabezado();
  while(true)
  {
 	read((char *)&buf, sizeof(buf));
