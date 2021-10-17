@@ -180,6 +180,10 @@ class Adopcion
 		Adopcion(int r){
 			registro = r;
 		}
+		
+		Adopcion(char *ci){
+			strcpy(cedula, ci);
+		}
 			
 		char *getCedula(){
 			return cedula;
@@ -196,7 +200,7 @@ class Adopcion
 		int getRegistro(){ return registro; }
 		
 		char *getRef(){
-			return fecha;
+			return cedula;
 		}
 		
 		bool getBandera(){
@@ -598,6 +602,38 @@ void eliminarDeterminadoRegistro(){
 	system("pause");
 }
 
+
+void reportarUsuario(){
+	char cedula[15];
+	
+	cout << "Ingrese la cedula del usuario que desea reportar: ";
+	cin.sync();
+	cin.getline (cedula, 15, '\n');
+	
+	Usuario auxUsuario(cedula);	
+	Adopcion auxAdopcion(cedula);
+	
+	if (archivoUsuario.buscar(auxUsuario) >= 0){
+		while(archivoAdopcion.buscar(auxAdopcion) >= 0){
+			Mascota mascotaActualizar(auxAdopcion.getCodigo());
+			archivoMascota.buscar(mascotaActualizar);
+			mascotaActualizar.setDisponibilidad(true);
+			archivoMascota.actualizar(mascotaActualizar);
+			
+			archivoAdopcion.eliminarDatoEspecifico(auxAdopcion);
+			auxAdopcion = Adopcion(cedula);
+		}
+		
+		auxUsuario.setEsApto(false);
+		auxUsuario.setNumeroAdopcionesACero();
+		archivoUsuario.actualizar(auxUsuario);	
+	}else
+		cout << "No hay ningun usuario registrado con esa cedula..." << endl << endl;
+
+	system("pause");	
+}
+
+
 int main() {
 	/*
 	Mascota a("Manchas", 5, "callejero", "5487L", "De la unet", 'F', "perro");
@@ -618,11 +654,17 @@ int main() {
 	listarMascotas();
 	listarUsuarios();
 	listarAdopciones();
+	
+	insertarAdopcion();
+	reportarUsuario();
+	listarMascotas();
+	listarUsuarios();
+	listarAdopciones();
 	// listarPorFecha();
 	// insertarAdopcion();
 	// listaNegra();
-	eliminarDeterminadoRegistro();
-	listarAdopciones();
+	//eliminarDeterminadoRegistro();
+	//listarAdopciones();
 	
 	
 

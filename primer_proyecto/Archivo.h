@@ -27,6 +27,8 @@ class TArchivo:public fstream
     int  buscarPos( T &bus, int pos);
     int  eliminar(T mod);
     int  eliminarRegistro(T mod);
+    int  eliminarPorCedula(char *cedula);
+    int  eliminarDatoEspecifico(T mod);
 };
 
 // Agrega un registro al final del archivo
@@ -224,6 +226,57 @@ int TArchivo<T>::eliminarRegistro(T mod){
 								read((char *)&buf, sizeof(buf));
 								if(eof()) break;
 								if(strcmp(mod.getRegistro(), buf.getRegistro()) != 0){
+							          aux.write((char *)&buf,sizeof(buf));		
+								}
+		}
+		close();
+		aux.close();
+		remove(nom);
+		rename("temp.dat",nom);
+	}
+	return enc;
+}
+
+// Elimina el registro deseado del archivo
+template <class T>
+int TArchivo<T>::eliminarPorCedula(char *cedula){         
+	// int enc=buscar(mod);
+	fstream aux;
+	aux.open("temp.dat",ios::binary | ios::out);		
+	if ( aux.fail() || aux.bad() )	return -2;
+	//if ( enc>=0 ){
+	
+	open(nom, ios::binary | ios::in);
+	if ( fail() || bad() )	return -2;
+	while(true){
+		cout << "infinito en archivo jeje" << endl;
+		read((char *)&buf, sizeof(buf));
+		if(eof()) break;
+		if(strcmp(cedula, buf.getCedula()) != 0){
+			aux.write((char *)&buf,sizeof(buf));		
+		}
+	}
+	close();
+	aux.close();
+	remove(nom);
+	rename("temp.dat",nom);
+	//}
+	return 1;
+}
+
+template <class T>
+int TArchivo<T>::eliminarDatoEspecifico(T mod){  
+	int enc=buscar(mod);
+	fstream aux;
+	aux.open("temp.dat",ios::binary | ios::out);		
+	if ( aux.fail() || aux.bad() )	return -2;
+	if ( enc>=0 ){
+		open(nom, ios::binary | ios::in);
+		if ( fail() || bad() )	return -2;
+		while(true){ 
+								read((char *)&buf, sizeof(buf));
+								if(eof()) break;
+								if(!((strcmp(mod.getRef(), buf.getRef()) == 0) && (strcmp(mod.getCodigo(), buf.getCodigo()) == 0))){
 							          aux.write((char *)&buf,sizeof(buf));		
 								}
 		}
