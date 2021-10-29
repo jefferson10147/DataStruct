@@ -76,6 +76,49 @@ class Mascota
 		void setDisponibilidad(bool d){
 			disponibleParaAdoptar = d;
 		}
+		
+		bool operator < (Mascota &obj){ 
+			if (strcmp(codigo, obj.getRef()) < 0)
+				return true;
+			else
+				return false;
+			// return ced < obj.get_clave(0);
+		}
+		
+		
+      	bool operator <= (Mascota &obj){ 
+      		if (strcmp(codigo, obj.getRef()) <= 0)
+				return true;
+			else
+				return false;
+		  // return ced <= obj.get_clave(0);
+		}
+		
+      	bool operator > (Mascota &obj){ 
+      		if (strcmp(codigo, obj.getRef()) > 0)
+				return true;
+			else
+				return false;
+		  // return ced > obj.get_clave(0);
+		}
+      
+        
+	  	bool operator >= (Mascota &obj){ 
+	  		if (strcmp(codigo, obj.getRef()) >= 0)
+				return true;
+			else
+				return false;
+		  // return ced >= obj.get_clave(0);
+		}
+		
+		  
+	    bool operator == (Mascota &obj){ 
+	    	if (strcmp(codigo, obj.getRef()) == 0)
+				return true;
+			else
+				return false;
+			// return ced == obj.get_clave(0);
+		}
 };
 
 
@@ -522,7 +565,8 @@ void eliminarMascota(){
 		cout << "La mascota ha sido eliminada de nuestros registros ..." << endl << endl;
 	else
 		cout << "Ha ocurrido un error tratando de eliminar la mascota ..."	<< endl << endl;
-		
+	
+	archivoOrdenados.eliminar(mascotaEliminar);
 	system("pause");
 }
 
@@ -694,12 +738,15 @@ void listarVector(){
 	system("pause");		
 }
 
-
-// void insertarEn 
 	
 void listarArchivosMascotas(){
 	archivoMascota.listar();
 	system("pause");
+}
+
+
+void ordernarMezclaEquilibrada(){
+	
 }
 
 
@@ -713,7 +760,8 @@ int menu(){
 	cout << "PROYECTO DE ORDENACION:" << endl;
 	cout << "4. Mostrar el Archivo de Mascotas" << endl;
 	cout << "5. Mostrar el vector de Mascotas" << endl;
-	
+	cout << "6. Ordenar por mezcla equilibrada" << endl;
+	cout << "7. Ordenar por mezcla directa" << endl;
 	cout << "10. Salir" << endl;
 	cout << endl << "Su opcion: ";
 	cin >> opcion;
