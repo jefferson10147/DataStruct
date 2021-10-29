@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string.h>
 #include <fstream>
+#include <stdio.h>
 
 #include "Archivo.h"
 
@@ -233,7 +234,7 @@ class Adopcion
 TArchivo<Mascota> archivoMascota((char*)"mascota.dat");
 TArchivo<Usuario> archivoUsuario((char*)"usuario.dat");
 TArchivo<Adopcion> archivoAdopcion((char*)"adopcion.dat");
-
+TArchivo<Mascota> archivoOrdenados((char*)"ordenado.dat");
 
 int calcularNumeroDeAdopciones(){
 	fstream archivo;
@@ -309,7 +310,8 @@ void insertarMascota(){
 		cout << endl << endl << "Mascota regitrada con exito :)" << endl << endl;
 	else
 		cout << endl << endl << "Ha ocurrido un error al registar la mascota :(" << endl << endl;
-		
+	
+	archivoOrdenados.insertar(nuevaMascota);
 	system("pause");
 }
 
@@ -659,6 +661,48 @@ void reportarUsuario(){
 }
 
 
+void getListaElementos(Mascota v[]){
+	ifstream archivo("ordenado.dat");
+	
+	if(!archivo)
+		archivoMascota.getVector(v);
+	else
+		archivoOrdenados.getVector(v);
+	
+	system("pause");
+}
+
+
+void insertarVectorOrdenado(Mascota v[], int n){
+	archivoOrdenados.reset();
+	
+	for(int i = 0; i < n; i ++)
+		archivoOrdenados.insertar(v[i]);		
+}
+
+
+void listarVector(){
+	int n = archivoMascota.listar();
+	Mascota v[n];
+	system("cls");
+	getListaElementos(v);
+	
+	for(int i = 0; i < n; i ++)
+		v[i].mostrar();
+	
+	insertarVectorOrdenado(v, n);
+	system("pause");		
+}
+
+
+// void insertarEn 
+	
+void listarArchivosMascotas(){
+	archivoMascota.listar();
+	system("pause");
+}
+
+
 int menu(){
 	int opcion; 
 	
@@ -666,7 +710,11 @@ int menu(){
 	cout << "1. Menu Mascota" << endl;
 	cout << "2. Menu Usuario" << endl;
 	cout << "3. Menu Adopcion" << endl;
-	cout << "4. Salir" << endl;
+	cout << "PROYECTO DE ORDENACION:" << endl;
+	cout << "4. Mostrar el Archivo de Mascotas" << endl;
+	cout << "5. Mostrar el vector de Mascotas" << endl;
+	
+	cout << "10. Salir" << endl;
 	cout << endl << "Su opcion: ";
 	cin >> opcion;
 	
@@ -845,7 +893,16 @@ int main() {
 			case 3:
 				menuAdopcion();
 				break;
-			case 4: 
+				
+			case 4:
+				listarArchivosMascotas();
+				break;
+				
+			case 5:
+				listarVector();
+				break;
+				
+			case 10: 
 				band = true;
 				break;
 				
