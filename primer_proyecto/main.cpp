@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "Archivo.h"
+#include "MezclaEquilibrada.h"
 
 using namespace std;
 
@@ -746,7 +747,8 @@ void listarArchivosMascotas(){
 
 
 void ordernarMezclaEquilibrada(){
-	
+	MezclaEquilibrada<Mascota> mezclaEquilibradaMascota((char *)"mascota.dat");
+	mezclaEquilibradaMascota.ordenar();
 }
 
 
@@ -948,6 +950,10 @@ int main() {
 				
 			case 5:
 				listarVector();
+				break;
+				
+			case 6:
+				ordernarMezclaEquilibrada();
 				break;
 				
 			case 10: 
