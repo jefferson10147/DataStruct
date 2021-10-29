@@ -7,6 +7,7 @@ using namespace std; // Plantilla de mantenimiento de archivos binarios derivada
 #include <fstream>
 #include <cstring>
 
+
 template <class T>
 class TArchivo:public fstream
 {
@@ -29,6 +30,7 @@ class TArchivo:public fstream
     int  eliminarRegistro(T mod);
     int  eliminarPorCedula(char *cedula);
     int  eliminarDatoEspecifico(T mod);
+    T *getVector(T listaObjetos []);
 };
 
 // Agrega un registro al final del archivo
@@ -66,6 +68,7 @@ int TArchivo<T>::buscar(T &bus)
  close();
  return enc; // Devuelve -1 si no lo encontro o el numero de registro o posicion relativa del reg
 }
+
 
 template <class T>
 int TArchivo<T>::buscarPos(T &bus, int pos)
@@ -111,6 +114,7 @@ int TArchivo<T>::listar()
  return i;  //retorna la cantidad de datos guardados en el archivo
 }
 
+
 template <class T>
 int TArchivo<T>::listarAptos(bool noAptos)
 {
@@ -131,6 +135,7 @@ int TArchivo<T>::listarAptos(bool noAptos)
  return i;  //retorna la cantidad de datos guardados en el archivo
 }
 
+
 template <class T>
 int TArchivo<T>::listarNoAptos()
 {
@@ -150,6 +155,7 @@ int TArchivo<T>::listarNoAptos()
  close();
  return i;  //retorna la cantidad de datos guardados en el archivo
 }
+
 
 template <class T>
 int TArchivo<T>::listarVarios(char *referencia)
@@ -213,6 +219,7 @@ int TArchivo<T>::eliminar(T mod){
 	return enc;
 }
 
+
 template <class T>
 int TArchivo<T>::eliminarRegistro(T mod){         
 	int enc=buscar(mod);
@@ -264,6 +271,7 @@ int TArchivo<T>::eliminarPorCedula(char *cedula){
 	return 1;
 }
 
+
 template <class T>
 int TArchivo<T>::eliminarDatoEspecifico(T mod){  
 	int enc=buscar(mod);
@@ -286,4 +294,21 @@ int TArchivo<T>::eliminarDatoEspecifico(T mod){
 		rename("temp.dat",nom);
 	}
 	return enc;
+}
+
+
+template <class T>
+T *TArchivo<T>::getVector(T listaObjetos[])
+{
+ int i=0;
+ open(nom, ios::binary | ios::in);
+	
+ while(true){
+	read((char *)&buf, sizeof(buf));
+ 	if (eof()) break;
+ 	listaObjetos[i] = buf;
+ 	i++;
+ }
+ close();
+ return listaObjetos;
 }
