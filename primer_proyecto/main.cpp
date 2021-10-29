@@ -2,6 +2,7 @@
 #include <string.h>
 #include <fstream>
 #include <stdio.h>
+#include <ctime>
 
 #include "Archivo.h"
 #include "MezclaEquilibrada.h"
@@ -819,39 +820,71 @@ void listarArchivosMascotas(){
 
 
 void ordenarMezclaEquilibrada(){
+	unsigned t0, t1;
 	MezclaEquilibrada<Mascota> mezclaEquilibradaMascota((char *)"mascota.dat");
+	
+	t0 = clock();
 	mezclaEquilibradaMascota.ordenar();
+	t1 = clock();
+	double time = (double(t1-t0)/CLOCKS_PER_SEC);
+	
 	cout << "Archivo ordenado por metodo de Mezcla Equilibrada :)" << endl;
+	cout << "Ha tomado un tiempo de: " << time << " segundos."<< endl;
 	system("pause");
 }
 
 
 void ordenarMezclaDirecta(){
+	unsigned t0, t1;
 	MezclaDirecta<Mascota> mezclaDirectaMascota((char*)"mascota.dat");
 	int n = archivoMascota.listar();
+	
+	t0 = clock();
 	mezclaDirectaMascota.Ordenar(n);
+	t1 = clock();
+	double time = (double(t1-t0)/CLOCKS_PER_SEC);
+	
 	cout << "Archivo ordenado por metodo de Mezcla Directa :)" << endl;
+	cout << "Ha tomado un tiempo de: " << time << " segundos."<< endl;
 	system("pause");
 }
 
 
 void ordenarQuicksort(){
+	unsigned t0, t1;
 	int n = archivoMascota.listar();
 	Mascota v[n];
 	system("cls");
 	getListaElementos(v);
+	
+	t0 = clock();
 	quickSort(v, 0, n - 1);
+	t1 = clock();
+	double time = (double(t1-t0)/CLOCKS_PER_SEC);
+	
 	insertarVectorOrdenado(v, n);
+	cout << "Archivo ordenado por metodo de Quicksort :)" << endl;
+	cout << "Ha tomado un tiempo de: " << time << " segundos."<< endl;
+	system("pause");
 } 
 
 
 void ordenarHeapsort(){
+	unsigned t0, t1;
 	int n = archivoMascota.listar();
 	Mascota v[n];
 	system("cls");
 	getListaElementos(v);
+	
+	t0 = clock();
 	heapSort(v, n);
+	t1 = clock();
+	double time = (double(t1-t0)/CLOCKS_PER_SEC);
+	
 	insertarVectorOrdenado(v, n);
+	cout << "Archivo ordenado por metodo de Heapsort :)" << endl;
+	cout << "Ha tomado un tiempo de: " << time << " segundos."<< endl;
+	system("pause");
 }
 
 
@@ -868,8 +901,8 @@ int menu(){
 	cout << "6. Ordenar por Mezcla Equilibrada" << endl;
 	cout << "7. Ordenar por Mezcla Directa" << endl;
 	cout << "8. Ordenar el Vector de Datos con el Metodo de Quicksort" << endl;
-	cout << "8. Ordenar el Vector de Datos con el Metodo de Heapsort" << endl;
-	cout << "10. Salir" << endl;
+	cout << "9. Ordenar el Vector de Datos con el Metodo de Heapsort" << endl;
+	cout << "11. Salir" << endl;
 	cout << endl << "Su opcion: ";
 	cin >> opcion;
 	
@@ -1073,7 +1106,7 @@ int main() {
 				ordenarHeapsort();
 				break;
 				
-			case 10: 
+			case 11: 
 				band = true;
 				break;
 				
