@@ -798,6 +798,17 @@ int buscarBinaria (t v[], int n, t &clave ){
 }
 
 
+template <class t>
+int busquedaSecuencial(t array[], int size, t &key){
+	for(int i=0;i<size;i++)
+		if(key==array[i]){
+			key = array[i];
+			return i;
+		}
+	return -1;
+}
+
+
 void getListaElementos(Mascota v[]){
 	ifstream archivo("ordenado.dat");
 	
@@ -806,7 +817,7 @@ void getListaElementos(Mascota v[]){
 	else
 		archivoOrdenados.getVector(v);
 	
-	system("pause");
+	// system("pause");
 }
 
 
@@ -938,6 +949,37 @@ void buscarBinario(){
 	system("pause");
 }
 
+
+void buscarSecuencial(){
+	char codigo[30];
+	unsigned t0, t1;
+	
+	cout << "Ingrese el codigo de la mascota que desea actualizar:";
+	cin.sync();
+	cin.getline (codigo, 30, '\n');
+	
+	Mascota mascotaBuscar(codigo);
+	
+	int n = archivoMascota.listar();
+	Mascota v[n];
+	getListaElementos(v);
+	system("cls");
+	
+	t0 = clock();
+	int resultado = busquedaSecuencial(v, n, mascotaBuscar);
+	t1 = clock();
+	double time = (double(t1-t0)/CLOCKS_PER_SEC);
+	
+	if( resultado >= 0){
+		cout << "Mascota encontrada con metodo de busqueda Secuencial!!" << endl;
+		cout << "Ha tomado un tiempo de: " << time << " segundos."<< endl << endl;
+		mascotaBuscar.mostrar();
+	}else
+		cout << "No se ha podido encontrar la mascota :( " << endl;
+		
+	system("pause");
+}
+
 int menu(){
 	int opcion; 
 	
@@ -953,7 +995,8 @@ int menu(){
 	cout << "8. Ordenar el Vector de Datos con el Metodo de Quicksort" << endl;
 	cout << "9. Ordenar el Vector de Datos con el Metodo de Heapsort" << endl;
 	cout << "10. Buscar Mascota (Metodo de Busqueda Binaria)" << endl;
-	cout << "11. Salir" << endl;
+	cout << "11. Buscar Mascota (Metodo de Busqueda Secuencial)" << endl;
+	cout << "12. Salir" << endl;
 	cout << endl << "Su opcion: ";
 	cin >> opcion;
 	
@@ -1162,7 +1205,11 @@ int main() {
 				buscarBinario();
 				break;	
 			
-			case 11: 
+			case 11:
+				buscarSecuencial();
+				break;
+				
+			case 12: 
 				band = true;
 				break;
 				
