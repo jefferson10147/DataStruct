@@ -709,6 +709,75 @@ void reportarUsuario(){
 }
 
 
+template <class t>
+int pivote(t v[], int start, int end) 
+{    
+    t pivot = v[end];  
+    int i = (start - 1);
+
+    for (int j = start; j <= end- 1; j++)
+    {
+        if (v[j] < pivot)
+        {
+            i++;    
+            swap(v[i],v[j]);
+        }
+    }
+    swap (v[i+1],v[end]);
+    return (i + 1);
+}
+
+template <class t>
+void quickSort(t v[], int start, int end)
+{
+  
+  int pospiv;    
+  if(start < end) {
+    pospiv = pivote(v, start, end);
+    quickSort(v, start, pospiv-1);
+    quickSort(v, pospiv+1, end);    
+  }              
+}
+
+
+template <class t>
+void heapify(t arr[], int n, int i)
+{
+    int largest = i; 
+    int l = 2 * i + 1; 
+    int r = 2 * i + 2; 
+ 
+    
+    if (l < n && arr[l] > arr[largest])
+        largest = l;
+ 
+    
+    if (r < n && arr[r] > arr[largest])
+        largest = r;
+ 
+    
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
+    }
+}
+ 
+
+template <class t>
+void heapSort(t arr[], int n)
+{
+    
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+ 
+    
+    for (int i = n - 1; i > 0; i--) {
+        swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
+    }
+}
+
+
 void getListaElementos(Mascota v[]){
 	ifstream archivo("ordenado.dat");
 	
@@ -766,6 +835,26 @@ void ordenarMezclaDirecta(){
 }
 
 
+void ordenarQuicksort(){
+	int n = archivoMascota.listar();
+	Mascota v[n];
+	system("cls");
+	getListaElementos(v);
+	quickSort(v, 0, n - 1);
+	insertarVectorOrdenado(v, n);
+} 
+
+
+void ordenarHeapsort(){
+	int n = archivoMascota.listar();
+	Mascota v[n];
+	system("cls");
+	getListaElementos(v);
+	heapSort(v, n);
+	insertarVectorOrdenado(v, n);
+}
+
+
 int menu(){
 	int opcion; 
 	
@@ -778,6 +867,8 @@ int menu(){
 	cout << "5. Mostrar el Vector de Mascotas" << endl;
 	cout << "6. Ordenar por Mezcla Equilibrada" << endl;
 	cout << "7. Ordenar por Mezcla Directa" << endl;
+	cout << "8. Ordenar el Vector de Datos con el Metodo de Quicksort" << endl;
+	cout << "8. Ordenar el Vector de Datos con el Metodo de Heapsort" << endl;
 	cout << "10. Salir" << endl;
 	cout << endl << "Su opcion: ";
 	cin >> opcion;
@@ -972,6 +1063,14 @@ int main() {
 			
 			case 7:
 				ordenarMezclaDirecta();
+				break;
+				
+			case 8:
+				ordenarQuicksort();
+				break;
+				
+			case 9:
+				ordenarHeapsort();
 				break;
 				
 			case 10: 
