@@ -779,6 +779,25 @@ void heapSort(t arr[], int n)
 }
 
 
+template <class t>
+int buscarBinaria (t v[], int n, t &clave ){
+  
+  int m, li = 0, ls = n-1;
+  while (li <= ls ){
+    m = (li + ls) /2;
+    if (clave == v [m]){
+    	clave = v[m];
+		return m;	
+	} 
+    
+    if (clave < v[m]) ls = m-1;
+    else li = m+1;
+  }
+  
+  return -1;
+}
+
+
 void getListaElementos(Mascota v[]){
 	ifstream archivo("ordenado.dat");
 	
@@ -865,7 +884,6 @@ void ordenarQuicksort(){
 	insertarVectorOrdenado(v, n);
 	cout << "Archivo ordenado por metodo de Quicksort :)" << endl;
 	cout << "Ha tomado un tiempo de: " << time << " segundos."<< endl;
-	system("pause");
 } 
 
 
@@ -888,6 +906,38 @@ void ordenarHeapsort(){
 }
 
 
+void buscarBinario(){
+	char codigo[30];
+	unsigned t0, t1;
+	
+	cout << "Ingrese el codigo de la mascota que desea actualizar:";
+	cin.sync();
+	cin.getline (codigo, 30, '\n');
+	
+	Mascota mascotaBuscar(codigo);
+	
+	ordenarQuicksort();
+	
+	int n = archivoMascota.listar();
+	Mascota v[n];
+	getListaElementos(v);
+	system("cls");
+	
+	t0 = clock();
+	int resultado = buscarBinaria(v, n, mascotaBuscar);
+	t1 = clock();
+	double time = (double(t1-t0)/CLOCKS_PER_SEC);
+	
+	if( resultado >= 0){
+		cout << "Mascota encontrada con metodo de busqueda binaria!!" << endl;
+		cout << "Ha tomado un tiempo de: " << time << " segundos."<< endl << endl;
+		mascotaBuscar.mostrar();
+	}else
+		cout << "No se ha podido encontrar la mascota :( " << endl;
+		
+	system("pause");
+}
+
 int menu(){
 	int opcion; 
 	
@@ -902,6 +952,7 @@ int menu(){
 	cout << "7. Ordenar por Mezcla Directa" << endl;
 	cout << "8. Ordenar el Vector de Datos con el Metodo de Quicksort" << endl;
 	cout << "9. Ordenar el Vector de Datos con el Metodo de Heapsort" << endl;
+	cout << "10. Buscar Mascota (Metodo de Busqueda Binaria)" << endl;
 	cout << "11. Salir" << endl;
 	cout << endl << "Su opcion: ";
 	cin >> opcion;
@@ -1100,12 +1151,17 @@ int main() {
 				
 			case 8:
 				ordenarQuicksort();
+				system("pause");
 				break;
 				
 			case 9:
 				ordenarHeapsort();
 				break;
 				
+			case 10:
+				buscarBinario();
+				break;	
+			
 			case 11: 
 				band = true;
 				break;
