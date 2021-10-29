@@ -5,6 +5,7 @@
 
 #include "Archivo.h"
 #include "MezclaEquilibrada.h"
+#include "MezclaDirecta.h"
 
 using namespace std;
 
@@ -77,6 +78,8 @@ class Mascota
 		void setDisponibilidad(bool d){
 			disponibleParaAdoptar = d;
 		}
+		
+		void setValue(char *c){ strcmp(codigo, c); }
 		
 		bool operator < (Mascota &obj){ 
 			if (strcmp(codigo, obj.getRef()) < 0)
@@ -746,9 +749,20 @@ void listarArchivosMascotas(){
 }
 
 
-void ordernarMezclaEquilibrada(){
+void ordenarMezclaEquilibrada(){
 	MezclaEquilibrada<Mascota> mezclaEquilibradaMascota((char *)"mascota.dat");
 	mezclaEquilibradaMascota.ordenar();
+	cout << "Archivo ordenado por metodo de Mezcla Equilibrada :)" << endl;
+	system("pause");
+}
+
+
+void ordenarMezclaDirecta(){
+	MezclaDirecta<Mascota> mezclaDirectaMascota((char*)"mascota.dat");
+	int n = archivoMascota.listar();
+	mezclaDirectaMascota.Ordenar(n);
+	cout << "Archivo ordenado por metodo de Mezcla Directa :)" << endl;
+	system("pause");
 }
 
 
@@ -760,10 +774,10 @@ int menu(){
 	cout << "2. Menu Usuario" << endl;
 	cout << "3. Menu Adopcion" << endl;
 	cout << "PROYECTO DE ORDENACION:" << endl;
-	cout << "4. Mostrar el Archivo de Mascotas" << endl;
-	cout << "5. Mostrar el vector de Mascotas" << endl;
-	cout << "6. Ordenar por mezcla equilibrada" << endl;
-	cout << "7. Ordenar por mezcla directa" << endl;
+	cout << "4. Mostrar el Archivo Binario de Mascotas" << endl;
+	cout << "5. Mostrar el Vector de Mascotas" << endl;
+	cout << "6. Ordenar por Mezcla Equilibrada" << endl;
+	cout << "7. Ordenar por Mezcla Directa" << endl;
 	cout << "10. Salir" << endl;
 	cout << endl << "Su opcion: ";
 	cin >> opcion;
@@ -953,7 +967,11 @@ int main() {
 				break;
 				
 			case 6:
-				ordernarMezclaEquilibrada();
+				ordenarMezclaEquilibrada();
+				break;
+			
+			case 7:
+				ordenarMezclaDirecta();
 				break;
 				
 			case 10: 
