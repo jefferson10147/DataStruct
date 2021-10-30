@@ -163,9 +163,9 @@ class MezclaEquilibrada {
 		MezclaEquilibrada(char *n){ strcpy(nombre,n); }
 		void ordenar()
 		{
-		    cout<<"ORDENANDO ARCHIVO "<<nombre<<endl;
+		    // cout<<"ORDENANDO ARCHIVO "<<nombre<<endl;
 		    particionInicial();
 		    particionFusion();
-		    cout<<"FINALIZACION DEL PROCESO DE ORDENAMIENTO"<<endl;
+		    // cout<<"FINALIZACION DEL PROCESO DE ORDENAMIENTO"<<endl;
 		}
 };
