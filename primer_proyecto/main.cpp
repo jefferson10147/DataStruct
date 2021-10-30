@@ -59,7 +59,9 @@ class Mascota
 			cout << "{" << descripcion << "}" << endl;
 			
 			if (disponibleParaAdoptar)
-				cout << "Se encuentra disponible para adoptar..." << endl << endl;
+				cout << "Se encuentra disponible para adoptar..." << endl;
+				
+			cout << endl << endl;
 		}
         
 		char *getRef(){ return codigo; }     
