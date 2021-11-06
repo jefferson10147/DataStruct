@@ -17,6 +17,46 @@ Bicola<char> bicolaPalabras;
 Pilas_dinamicas<char*> pilaDinamica;
 Pila_Array<char*> pila;
 
+void verificarInfeccion(){
+	
+}
+
+void cargarDiccionario(){
+	// Las letras ñ fueron reemplazadas por nh
+	ifstream archivo;
+	int MAX_CARACTERES = 10000;
+	char contenido[MAX_CARACTERES];
+	
+	archivo.open((char*)"palabras.txt");
+	if(!archivo.is_open()){
+		system("cls");
+		cout << "Ha ocurrido un error tratando de leer el archivo infectado..." << endl;
+		system("pause");
+		exit(1);
+	}
+	
+	int i = 0;
+	char c;
+	while(!archivo.eof()){
+		archivo.get(c);
+		if (c == '\n')
+			contenido[i] = ' ';
+		else
+			contenido[i] = c;
+		i ++;
+	}
+	contenido[i - 1] = '\0';
+	
+	// cout << "contenido-." << contenido << endl;
+	char *ptr;
+    ptr = strtok(contenido, " ");  
+    while (ptr != NULL){  
+		miLista.AnadirFinal(ptr); 
+        ptr = strtok(NULL, " ");  
+    }  
+	archivo.close();
+}
+
 void cargarPalabrasOrdenadasEnLaPila(char *nombreArchivo){
 	int MAX_CARACTERES_POR_PALABRA = 70;
 	char contenido[MAX_CARACTERES_POR_PALABRA];
@@ -31,6 +71,7 @@ void cargarPalabrasOrdenadasEnLaPila(char *nombreArchivo){
 	punteroAux = strtok(contenido, " ");  
     while (punteroAux != NULL){ 
 		colaDinamica.AnadirFinal(punteroAux);
+		//pilaDinamica.AnadirFinal(punteroAux);
 		punteroAux = strtok(NULL, " ");  
     }
     
@@ -44,15 +85,12 @@ void cargarPalabrasOrdenadasEnLaPila(char *nombreArchivo){
 		exit(1);
 	}
 	
-	
     while(!colaDinamica.isVacia()){
-    	
 	    archivo << colaDinamica.Leer();
 	    
 	    if(colaDinamica.getNumeroElementos() > 0)
 	    	archivo << " ";
 	}
-    
 }
 
 void cargarPalabrasBicola(){
@@ -116,95 +154,22 @@ void leerArchivo(char *nombre){
 
 
 int main(int argc, char** argv) {
-	// miLista.Anadir("hola");
-	// miLista.Anadir("chao");
-	// miLista.Imprimir();
 	
-	/*//COLAS
-	colaDinamica.Anadir("holaa");
-	colaDinamica.Anadir("chao");
-	cout << colaDinamica.Leer();
-	cout << endl;
-	cout << colaDinamica.Leer();
-	cout << "imprimeindo la cola jeje" << endl;
-	colaDinamica.Imprimir();
-	*/
-	
-	 // BICOLA PARA LAS PALABRAS
-	/*char primera = 'a';
-	char segunda = 'b';
-	char tercera = 'c';
-	bicolaPalabras.push_front(primera);
-	bicolaPalabras.push_front(segunda);
-	bicolaPalabras.push_front(tercera);
-	
-	cout << "primera " << bicolaPalabras.pop_front() << endl;
-	cout << "segunda " << bicolaPalabras.pop_front() << endl;
-	cout << "tercera " << bicolaPalabras.pop_front() << endl;
-	*/
-	 /*
-	char primero = 'A';
-	for(int i = 0; i < 10; i++){
-		bicolaPalabras.push_front(primero);
-	}
-	
-	while(!bicolaPalabras.isEmpty())
-		cout << bicolaPalabras.pop_front() << endl;
-	*/
-	//PILA PARA ORDENAR EL ARCHIVO
-	/*char *str = "";
-	char *str3 = "primero en la pila, deberia ser el ultimo en salir";
-	str = str3;
-	cout << "direccion 1 " << &str << " direccion 2 " << &str3 << endl;
-	pilaDinamica.Anadir(str);
-	char *str4 = "segundo en la pila, deberia ser el segundo en salir";
-	str = str4;
-	pilaDinamica.Anadir(str);
-	cout << "direccion 1 " << &str << " direccion 2 " << &str4 << endl;
-	pilaDinamica.Anadir("ultimo en la pila, deberia ser el primero en salir");
-	cout << pilaDinamica.Leer() << endl;
-	cout << pilaDinamica.Leer() << endl;
-	cout << pilaDinamica.Leer() << endl;*/
 	
 	
 	
 	leerArchivo((char*)"archivo_prueba.txt");
 	
-	/*cout << "CONTENIDO EN LA COLA " << endl;
-	colaDinamica.Imprimir();
-	cout << endl;
-	cout << "Numero de elementos en la cola " << colaDinamica.getNumeroElementos() << endl;
-	cout << endl << endl;
-	pila.setTamano(colaDinamica.getNumeroElementos());*/
+
 	
 	cargarPalabrasBicola();
-	/*cout << "CONTENIDO DE LA BICOLA " << endl;
-	bicolaPalabras.print();
-	cout << "\nNumero de elementos en la bicola " << bicolaPalabras.getNumeroElementos() << endl;*/
-	
-	//while(!bicolaPalabras.isEmpty())
-	//	cout << bicolaPalabras.pop_front();
-	//cout << endl << endl;
+
 	
 	cargarPalabrasOrdenadasEnLaPila((char*)"archivo_prueba.txt");
-	//pila.Imprimir();
-	// pilaDinamica.Imprimir();
-	// cout << pilaDinamica.Leer();
-	// cout << pilaDinamica.Leer();
-	cout << endl << endl; 
-	
-	
-	/*
-	char *str = "hola";
-	char *str2 = "chao";
-	pila.Anadir(str);
-	pila.Anadir(str2);
-	int i = 0;
-	pila.Imprimir();
-	char *str3 = "";
-	cout << endl << endl;
-	cout << pila.Leer(str3) << str3 << endl;
-	cout << pila.Leer(str3) << str3 << endl;
-	*/
+
+	cargarDiccionario();
+
+	//miLista.Imprimir();	
+	system("pause");
 	return 0;
 }
