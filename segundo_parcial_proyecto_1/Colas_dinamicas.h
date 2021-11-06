@@ -1,6 +1,7 @@
 #ifndef COLAS_DINAMICAS_H
 #define COLAS_DINAMICAS_H
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 template<class T> class Colas_dinamicas;
@@ -37,12 +38,14 @@ class Colas_dinamicas {
         void AnadirFinal(T);
 		void Anadir(T v);
 		T Leer();
+		T *LeerPalabra();
 		void Imprimir();
 		void invert();
 		void sort();
 		void mezcla(Colas_dinamicas);
 		void concat(Colas_dinamicas);
 		void insert_sort(T a[], int size);
+		int getNumeroElementos();
 	//en caso de necesitar usar pilas o listas en conjunto con esta importar las librerias y declararlas como amigas y el prototipo de platnilla..
 	//friend class Pilas_dinamicas <T>;
 	//friend class ListaEnlazada <T>;
@@ -175,6 +178,20 @@ void Colas_dinamicas<T>::Imprimir()
 }
 
 template<class T>
+int Colas_dinamicas<T>::getNumeroElementos()
+{
+	nodo<T> *p = primero;
+	int i = 0;
+	while(p){
+		i ++;
+		p = p->getSiguiente();
+	} 
+	
+	return i;
+}
+
+
+template<class T>
 Colas_dinamicas<T>::~Colas_dinamicas()
 {
 	while(primero)
@@ -185,6 +202,7 @@ Colas_dinamicas<T>::~Colas_dinamicas()
 template<class T>
 void Colas_dinamicas<T>::Anadir(T v)
 {
+//	cout << "INSERTANDO " << v << endl;
    nodo<T> *nuevo;
    nuevo = new nodo<T>(v);
    if(ultimo) ultimo->siguiente = nuevo;
@@ -242,4 +260,5 @@ T Colas_dinamicas<T>::Leer()
    if(!primero) ultimo = NULL;
    return v;
 }
+
 #endif
