@@ -40,6 +40,8 @@ class Bicola {
         T pop_back();
 		void print();
 		void sort();
+		void limpiar();
+		int getNumeroElementos();
 };
 
 template<typename T>
@@ -73,6 +75,7 @@ bool Bicola<T>::isEmpty()
 template<typename T>
 void Bicola<T>::push_front(T data_)
 {
+	//cout << "INSERTANDO EN LA BICOLA " << data_ << endl;
     nodoB<T> *new_nodo = new nodoB<T> (data_);
     nodoB<T> *temp = first;
 
@@ -151,8 +154,30 @@ void Bicola<T>::print()
 		p = p->getSucesor();
 	}
 }
+
+template<class T>
+int Bicola<T>::getNumeroElementos()
+{
+	nodoB<T> *p = first;
+	int i = 0;
+	while(p){
+		i ++;
+		p = p->getSucesor();
+	}
+	
+	return i;
+}
+
 template<class T>
 Bicola<T>::~Bicola()
+{
+	while(first)
+		pop_front();
+	nNodes = 0;
+}
+
+template<class T>
+void Bicola<T>:: limpiar()
 {
 	while(first)
 		pop_front();
