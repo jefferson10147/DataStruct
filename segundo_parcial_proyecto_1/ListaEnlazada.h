@@ -42,6 +42,7 @@ class ListaEnlazada {
 		void mezcla(ListaEnlazada);
 		void concat(ListaEnlazada);
 		void insert_sort(T a[], int size);
+		bool BuscarPalabra(char *palabraBuscar);
 //	friend class Pilas_dinamicas<T>;
 //	friend class Colas_dinamicas<T>;
 };
@@ -273,9 +274,25 @@ void ListaEnlazada<T>::Imprimir()
 {
 	Nodo<T> *p = inicio;
 	while(p) {
-		cout << p->getValor() << " "; //sobrecargar :v
+		cout << p->getValor() << " ";
 		p = p->getSiguiente();
 	}
+}
+
+template <class T>
+bool ListaEnlazada<T>::BuscarPalabra(char *palabraBuscar){
+	Nodo<T> *p = inicio;
+	while(p){
+		char *aux = p->getValor();
+
+		if (strcmp(palabraBuscar, aux) == 0) {
+			return true;	
+		}
+		
+		p=p->getSiguiente();
+	}
+	
+	return false;
 }
 
 #endif
