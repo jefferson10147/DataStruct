@@ -236,7 +236,7 @@ void ArbolBB<T>::imprimir(int o) {
 		PreOrden();
 	else if(o == 2) 
 		InOrden();
-	else
+	else if(o == 3)
 		PostOrden();
 }
 
