@@ -14,16 +14,17 @@ using namespace std;
 
 string nombreArchivo = "arbol.txt";
 
-//int numeroDeRegistros();
+int numeroDeRegistros();
 void cargarArboles(ArbolBB<string> ListaArbolitos[]);
 
 
 int main(int argc, char** argv) {
+	int cantidadArbolitos = numeroDeRegistros();
 	
-	
-	int cantidadArbolitos = 2;
+	if(cantidadArbolitos <= 0)
+		return 0;
+		
 	ArbolBB<string> listaArbolitos[cantidadArbolitos];
-	
 	cargarArboles(listaArbolitos);
 	
 	for (int i = 0; i < cantidadArbolitos; i++) {
@@ -35,6 +36,22 @@ int main(int argc, char** argv) {
 	
 	return 0;
 }
+
+
+int numeroDeRegistros() {
+	fstream file(nombreArchivo, ios::in);
+	string line;
+	int i = 0;
+	
+	if (file.fail())
+		cout << "Error al abrir el archivo arbol.txt" << endl;
+	else 
+		while (getline(file,line)) 
+			i++;
+	
+	return i;
+}
+
 
 void cargarArboles(ArbolBB<string> listaArbolitos[]) {
 	fstream file(nombreArchivo, ios::in);
@@ -55,5 +72,4 @@ void cargarArboles(ArbolBB<string> listaArbolitos[]) {
 			i++;
 		}
 	}
-	
 }
