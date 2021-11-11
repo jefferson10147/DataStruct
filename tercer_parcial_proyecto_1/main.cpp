@@ -29,6 +29,7 @@ int main(int argc, char** argv) {
 	cargarArboles(listaArbolitos);
 	imprimirArboles(listaArbolitos, cantidadArbolitos);
 	
+	system("pause");
 	return 0;
 }
 
@@ -71,10 +72,22 @@ void cargarArboles(ArbolBB<string> listaArbolitos[]) {
 
 
 void imprimirArboles(ArbolBB<string> listaArbolitos[], int cantidadArbolitos) {
+	ArbolBB<string> aux;
+	int cont = 0;
+	
 	for (int i = 0; i < cantidadArbolitos; i++) {
 		cout << "Arbol " << i + 1 << ":" << endl;
 		listaArbolitos[i].imprimir(3);
-		cout << "Altura: " << listaArbolitos[i].AlturaArbol();
+		
+		cout << endl << "Altura: " << listaArbolitos[i].AlturaArbol();
+		
+		aux = listaArbolitos[i];
+		cont = 0;
+		if (aux.EsAVL(cont, true) == 0)
+			cout << endl << "Es un arbol equilibrado!" << endl;
+		else
+			cout << endl << "No es un arbol equilibrado!" << endl;
+			
 		cout << endl << "------------------" << endl;		
 	}
 }
