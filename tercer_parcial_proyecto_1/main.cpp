@@ -16,10 +16,18 @@ void cargarArboles(ArbolBB<string> ListaArbolitos[]);
 
 int main(int argc, char** argv) {
 	
-	int cantidadArbolitos = 10;
+
+	int cantidadArbolitos = 2;
 	ArbolBB<string> listaArbolitos[cantidadArbolitos];
 	
 	cargarArboles(listaArbolitos);
+	
+	for (int i = 0; i < cantidadArbolitos; i++) {
+		cout << "Arbol " << i + 1 << ":" << endl;
+		listaArbolitos[i].imprimir(3);
+		cout << "Altura: " << listaArbolitos[i].AlturaArbol();
+		cout << endl << "------------------" << endl;		
+	}
 	
 	return 0;
 }
@@ -35,9 +43,9 @@ void cargarArboles(ArbolBB<string> listaArbolitos[]) {
 	else {
 		while (getline(file,line)) {
 			split = strtok(&line[0], " ");
+			split = strtok(NULL, " ");
 			while (split) {
-				// ListaArbolitos[i].Anadir(atoi(split));
-				cout << split << endl;
+				listaArbolitos[i].Anadir(split);
 				split = strtok(NULL, " ");	
 			}
 			i++;
