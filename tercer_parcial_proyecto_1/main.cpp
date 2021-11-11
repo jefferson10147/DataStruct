@@ -1,6 +1,6 @@
 /*
 	Realizado por: Jefferson S. Montilla Mendoza C.I 26493551
-	Tercer Proyecto
+	Tercer Parcial
 	Estructuras de datos
 */
 
