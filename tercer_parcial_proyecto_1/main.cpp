@@ -35,6 +35,7 @@ int main(int argc, char** argv) {
 
 
 int numeroDeRegistros() {
+	/*Esta función obtiene el numero de lineas que hay en el archivo arbol.txt*/
 	fstream file(nombreArchivo, ios::in);
 	string line;
 	int i = 0;
@@ -50,6 +51,7 @@ int numeroDeRegistros() {
 
 
 void cargarArboles(ArbolBB<string> listaArbolitos[]) {
+	/*Lee cada linea que hay en el archivo arbol.txt carga los arboles en la lista de arbolitos*/
 	fstream file(nombreArchivo, ios::in);
 	string line;
 	char *split;
@@ -72,6 +74,8 @@ void cargarArboles(ArbolBB<string> listaArbolitos[]) {
 
 
 void imprimirArboles(ArbolBB<string> listaArbolitos[], int cantidadArbolitos) {
+	/*Recorre cada elemento de la lista de arbolitos, los imprime en post orden, imprime la altura,
+	chequea si el arbol está equilibrado, imprime todos los nodos que son hojas*/
 	ArbolBB<string> aux;
 	int cont = 0;
 	
