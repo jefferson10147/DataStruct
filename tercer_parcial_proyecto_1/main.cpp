@@ -12,11 +12,15 @@
 
 using namespace std;
 
+string nombreArchivo = "arbol.txt";
+
+//int numeroDeRegistros();
 void cargarArboles(ArbolBB<string> ListaArbolitos[]);
+
 
 int main(int argc, char** argv) {
 	
-
+	
 	int cantidadArbolitos = 2;
 	ArbolBB<string> listaArbolitos[cantidadArbolitos];
 	
@@ -33,7 +37,7 @@ int main(int argc, char** argv) {
 }
 
 void cargarArboles(ArbolBB<string> listaArbolitos[]) {
-	fstream file("arbol.txt", ios::in);
+	fstream file(nombreArchivo, ios::in);
 	string line;
 	char *split;
 	int i = 0;
