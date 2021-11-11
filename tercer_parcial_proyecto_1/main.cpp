@@ -79,7 +79,7 @@ void imprimirArboles(ArbolBB<string> listaArbolitos[], int cantidadArbolitos) {
 		cout << "Arbol " << i + 1 << ":" << endl;
 		listaArbolitos[i].imprimir(3);
 		
-		cout << endl << "Altura: " << listaArbolitos[i].AlturaArbol();
+		cout << endl << "Altura: " << listaArbolitos[i].AlturaArbol() << endl;
 		
 		aux = listaArbolitos[i];
 		cont = 0;
@@ -87,6 +87,9 @@ void imprimirArboles(ArbolBB<string> listaArbolitos[], int cantidadArbolitos) {
 			cout << endl << "Es un arbol equilibrado!" << endl;
 		else
 			cout << endl << "No es un arbol equilibrado!" << endl;
+			
+		cout << endl << "Los nodos hojas son: " << endl;
+		listaArbolitos[i].ImprimirHojas();
 			
 		cout << endl << "------------------" << endl;		
 	}
