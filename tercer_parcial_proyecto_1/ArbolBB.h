@@ -64,6 +64,7 @@ class ArbolBB {
 		void imprimir(int o = 1);
 		void CalcularFE(NodoABB<T> *nodo, bool r);
 		int EsAVL(int&, bool r, NodoABB<T> *nodo = NULL);
+		void ImprimirHojas(NodoABB<T> *nodo = NULL, bool r = true);
 };
 
 template<class T>
@@ -325,5 +326,18 @@ void ArbolBB<T>::auxAltura(NodoABB<T> *nodo, int a) {
 		auxAltura(nodo->getDerecho(), a+1);
 	if (EsHoja(nodo) && a > altura) 
 		altura = a;
+}
+
+template<class T>
+void ArbolBB<T>::ImprimirHojas(NodoABB<T> *nodo, bool r) {
+	if (r) 
+		nodo = raiz;
+	if (nodo->getIzquierdo()) 
+		ImprimirHojas(nodo->getIzquierdo(), false);
+	if (nodo->getDerecho()) 
+		ImprimirHojas(nodo->getDerecho(), false);
+	
+	if (EsHoja(nodo))
+		cout << nodo->getValor() << " ";
 }
 #endif
