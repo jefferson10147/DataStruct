@@ -15,7 +15,8 @@ using namespace std;
 string nombreArchivo = "arbol.txt";
 
 int numeroDeRegistros();
-void cargarArboles(ArbolBB<string> ListaArbolitos[]);
+void cargarArboles(ArbolBB<string> listaArbolitos[]);
+void imprimirArboles(ArbolBB<string> listaArbolitos[], int cantidadArbolitos);
 
 
 int main(int argc, char** argv) {
@@ -26,13 +27,7 @@ int main(int argc, char** argv) {
 		
 	ArbolBB<string> listaArbolitos[cantidadArbolitos];
 	cargarArboles(listaArbolitos);
-	
-	for (int i = 0; i < cantidadArbolitos; i++) {
-		cout << "Arbol " << i + 1 << ":" << endl;
-		listaArbolitos[i].imprimir(3);
-		cout << "Altura: " << listaArbolitos[i].AlturaArbol();
-		cout << endl << "------------------" << endl;		
-	}
+	imprimirArboles(listaArbolitos, cantidadArbolitos);
 	
 	return 0;
 }
@@ -71,5 +66,15 @@ void cargarArboles(ArbolBB<string> listaArbolitos[]) {
 			}
 			i++;
 		}
+	}
+}
+
+
+void imprimirArboles(ArbolBB<string> listaArbolitos[], int cantidadArbolitos) {
+	for (int i = 0; i < cantidadArbolitos; i++) {
+		cout << "Arbol " << i + 1 << ":" << endl;
+		listaArbolitos[i].imprimir(3);
+		cout << "Altura: " << listaArbolitos[i].AlturaArbol();
+		cout << endl << "------------------" << endl;		
 	}
 }
