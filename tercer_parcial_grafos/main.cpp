@@ -20,7 +20,7 @@ bool existeEnVector(vector<string> v, string busqueda);
 bool chequearGrafoConexo(vector<string> v, Grafo *g);
 void imprimirFuentesYPozos(vector<string> v, Grafo *g);
 void aplicarDijkstra(Grafo *g);
-bool eliminarElemento(Grafo *g);
+void eliminarElemento(Grafo *g);
 
 
 int main(int argc, char** argv) {
@@ -29,8 +29,8 @@ int main(int argc, char** argv) {
 	Grafo *g = new Grafo("aristas.txt",' ', true, true);
 
 	// imprimirFuentesYPozos(listaVertices, g);
-	aplicarDijkstra(g);
-	
+	// aplicarDijkstra(g);
+	eliminarElemento(g);
 	/*
 	for(int x = 0; x < 4; x++) {
 		for(int y = 0; y < 4; y++) {
@@ -78,7 +78,7 @@ int main(int argc, char** argv) {
 }
 
 
-void modificarArchivo(string nombreArchivo){
+void modificarArchivo(string nombreArchivo) {
 	string nombreArchivoAux = "archivo_aux.txt";
 	fstream archivo(nombreArchivo, ios::in), nuevoArchivo(nombreArchivoAux, ios::out);
 	string linea;
@@ -144,7 +144,7 @@ bool chequearGrafoConexo(vector<string> listaVertices, Grafo *g) {
 }
 
 
-void imprimirFuentesYPozos(vector<string> listaVertices, Grafo *g){
+void imprimirFuentesYPozos(vector<string> listaVertices, Grafo *g) {
 	if(chequearGrafoConexo(listaVertices, g)){
 		cout << "El grafo es conexo." << endl;
 		return;
@@ -175,7 +175,7 @@ void imprimirFuentesYPozos(vector<string> listaVertices, Grafo *g){
 }
 
 
-void aplicarDijkstra(Grafo *g){
+void aplicarDijkstra(Grafo *g) {
 	string vertice1, vertice2;
 	
 	cout << "Ingrese el vertice 1: "; 
@@ -194,4 +194,22 @@ void aplicarDijkstra(Grafo *g){
 	else
 		cout << "Ha ocurrido un error :(" << endl;
 	
+}
+
+
+void eliminarElemento(Grafo *g) {
+	string vertice; 
+	cout << "Ingrese el elemento que desea eleminar: "; 
+	getline(cin, vertice);	
+	vertice = toupper(vertice[0]);
+	
+	Vertice *v1 = new Vertice(vertice, 0);
+	
+	if(g->lista_adyacencia->eliminar(0, v1))
+		cout << "Se pudo eliminar el elemento. :D" << endl;
+	else
+		cout << "No se pudo eliminar el elemento." << endl;
+		
+	system("pause");
+	g->imprimirListaAdyacencia();	
 }
