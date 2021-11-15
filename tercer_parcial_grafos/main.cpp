@@ -13,9 +13,10 @@
 using namespace std;
 
 vector<string> listaVertices;
+string nombreArchivo = "aristas.txt";
+string nombreArchivoAux = "archivo_aux.txt";
 
-
-void modificarArchivo(string nombreArchivo);
+void modificarArchivo(string nombreArchivo, string nombreArchivoAux);
 bool existeEnVector(vector<string> v, string busqueda);
 bool chequearGrafoConexo(vector<string> v, Grafo *g);
 void imprimirFuentesYPozos(vector<string> v, Grafo *g);
@@ -25,11 +26,10 @@ int menu();
 
 
 int main(int argc, char** argv) {
+	modificarArchivo(nombreArchivo, nombreArchivoAux);
+	Grafo *g = new Grafo(nombreArchivoAux,' ', true, true);
+	
 	int opcionMenu;
-	modificarArchivo("aristas.txt");
-	
-	Grafo *g = new Grafo("aristas.txt",' ', true, true);
-	
 	while(opcionMenu = menu()){
 		switch(opcionMenu){
 			case 1:
@@ -107,8 +107,7 @@ int main(int argc, char** argv) {
 }
 
 
-void modificarArchivo(string nombreArchivo) {
-	string nombreArchivoAux = "archivo_aux.txt";
+void modificarArchivo(string nombreArchivo, string nombreArchivoAux) {
 	fstream archivo(nombreArchivo, ios::in), nuevoArchivo(nombreArchivoAux, ios::out);
 	string linea;
 	int i = 0;
@@ -135,8 +134,6 @@ void modificarArchivo(string nombreArchivo) {
 
 	archivo.close();
 	nuevoArchivo.close();	
-	remove(&nombreArchivo[0]);
-	rename(&nombreArchivoAux[0], &nombreArchivo[0]);
 }
 
 
