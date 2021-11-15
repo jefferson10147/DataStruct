@@ -19,6 +19,7 @@ void modificarArchivo(string nombreArchivo);
 bool existeEnVector(vector<string> v, string busqueda);
 bool chequearGrafoConexo(vector<string> v, Grafo *g);
 void imprimirFuentesYPozos(vector<string> v, Grafo *g);
+void aplicarDijkstra(Grafo *g);
 
 
 int main(int argc, char** argv) {
@@ -26,8 +27,8 @@ int main(int argc, char** argv) {
 	
 	Grafo *g = new Grafo("aristas.txt",' ', true, true);
 
-	imprimirFuentesYPozos(listaVertices, g);
-	
+	// imprimirFuentesYPozos(listaVertices, g);
+	aplicarDijkstra(g);
 	
 	/*
 	for(int x = 0; x < 4; x++) {
@@ -170,4 +171,26 @@ void imprimirFuentesYPozos(vector<string> listaVertices, Grafo *g){
 		else if(numeroPozo == (g->getNumeroVertices() - 1))
 			cout << "El nodo " << listaVertices[x] << " es un pozo." << endl; 	
 	}
+}
+
+
+void aplicarDijkstra(Grafo *g){
+	string vertice1, vertice2;
+	
+	cout << "Ingrese el vertice 1: "; 
+	getline(cin, vertice1);	
+	cout << "Ingrese el vertice 2: ";
+	getline(cin, vertice2);
+	
+	vertice1 = toupper(vertice1[0]);
+	vertice2 = toupper(vertice2[0]);
+	
+	Vertice *v1 = new Vertice(vertice1, 0);
+	Vertice *v2 = new Vertice(vertice2, 0);
+	
+	if(g->buscarCaminos_MinMaxLongitud_Vertices(v1, v2))
+		g->imprimirListaCaminos();
+	else
+		cout << "Ha ocurrido un error :(" << endl;
+	
 }
