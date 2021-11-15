@@ -18,6 +18,7 @@ vector<string> listaVertices;
 void modificarArchivo(string nombreArchivo);
 bool existeEnVector(vector<string> v, string busqueda);
 bool chequearGrafoConexo(vector<string> v, Grafo *g);
+void imprimirFuentesYPozos(vector<string> v, Grafo *g);
 
 
 int main(int argc, char** argv) {
@@ -25,23 +26,21 @@ int main(int argc, char** argv) {
 	
 	Grafo *g = new Grafo("aristas.txt",' ', true, true);
 
-	if(hequearGrafoConexo(listaVertices, g)){ 
-		
-	}
+	imprimirFuentesYPozos(listaVertices, g);
 	
 	
 	/*
 	for(int x = 0; x < 4; x++) {
 		for(int y = 0; y < 4; y++) {
 			if (x != y) {
-	 			Vertice *v1 = new Vertice(listavertices[x],0);
-				Vertice *v2 = new Vertice(listavertices[y],0);
+	 			Vertice *v1 = new Vertice(listaVertices[x],0);
+				Vertice *v2 = new Vertice(listaVertices[y],0);
 				cout << v1->getIdentificador() << " -> "  << v2->getIdentificador() << " = " << g->conectividad(v1,v2) << endl;
 			}	
 		}
 	}
-	*/
 	
+	*/
 	
 	/*ListaD<Vertice>* lista_adyacencia = g->lista_adyacencia;
 	Nodo<Vertice>* recorrido = lista_adyacencia->getCab();
@@ -75,6 +74,7 @@ int main(int argc, char** argv) {
 	//g->imprimirListaAdyacencia();
 	return 0;
 }
+
 
 void modificarArchivo(string nombreArchivo){
 	string nombreArchivoAux = "archivo_aux.txt";
@@ -132,10 +132,42 @@ bool chequearGrafoConexo(vector<string> listaVertices, Grafo *g) {
 			}	
 		}
 		
-		if(contadorDeGrafosConectados < (g->getNumeroVertices() - 1))
+		if(contadorDeGrafosConectados < (g->getNumeroVertices() - 1)){
+			cout << "Este grafo no es conexo." << endl;
 			return false;
+		}
 	}
 	
 	return true;
 }
 
+
+void imprimirFuentesYPozos(vector<string> listaVertices, Grafo *g){
+	if(chequearGrafoConexo(listaVertices, g)){
+		cout << "El grafo es conexo." << endl;
+		return;
+	}
+		
+	int numeroFuentes, numeroPozo;
+	for(int x = 0; x < listaVertices.size(); x++) {
+		numeroFuentes = 0;
+		numeroPozo = 0;
+		for(int y = 0; y < listaVertices.size(); y ++){
+			if (x != y) {
+	 			Vertice *v1 = new Vertice(listaVertices[x], 0);
+				Vertice *v2 = new Vertice(listaVertices[y], 0);
+				
+				if(g->conectividad(v1,v2))
+					numeroFuentes ++;
+				else 
+					numeroPozo ++;	
+			}	
+			
+		}
+		
+		if(numeroFuentes == (g->getNumeroVertices() - 1))
+			cout << "El nodo " << listaVertices[x] << " es una fuente." << endl;
+		else if(numeroPozo == (g->getNumeroVertices() - 1))
+			cout << "El nodo " << listaVertices[x] << " es un pozo." << endl; 	
+	}
+}
