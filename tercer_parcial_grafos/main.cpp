@@ -20,6 +20,7 @@ bool existeEnVector(vector<string> v, string busqueda);
 bool chequearGrafoConexo(vector<string> v, Grafo *g);
 void imprimirFuentesYPozos(vector<string> v, Grafo *g);
 void aplicarDijkstra(Grafo *g);
+bool eliminarElemento(Grafo *g);
 
 
 int main(int argc, char** argv) {
