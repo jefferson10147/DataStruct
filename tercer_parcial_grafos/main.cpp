@@ -56,53 +56,6 @@ int main(int argc, char** argv) {
 		system("pause");
 		system("cls");
 	}
-
-	// imprimirFuentesYPozos(listaVertices, g);
-	// aplicarDijkstra(g);
-	// eliminarElemento(g);
-	/*
-	for(int x = 0; x < 4; x++) {
-		for(int y = 0; y < 4; y++) {
-			if (x != y) {
-	 			Vertice *v1 = new Vertice(listaVertices[x],0);
-				Vertice *v2 = new Vertice(listaVertices[y],0);
-				cout << v1->getIdentificador() << " -> "  << v2->getIdentificador() << " = " << g->conectividad(v1,v2) << endl;
-			}	
-		}
-	}
-	
-	*/
-	
-	/*ListaD<Vertice>* lista_adyacencia = g->lista_adyacencia;
-	Nodo<Vertice>* recorrido = lista_adyacencia->getCab();
-	
-	
-	while( recorrido ) {
-		cout << *recorrido->getInfo() << "-> en el main" << endl; // imprimo vertice
-		recorrido->getInfo()->vertices_adyacentes->imprimir(); 
-		
-		cout << endl;
-		
-		string informacion = recorrido->getInfo()->getIdentificador();
-		
-		Nodo<Vertice>* segundoRecorrido = lista_adyacencia->getCab();
-		while(segundoRecorrido) { 
-			string segundaInformacion = segundoRecorrido->getInfo()->getIdentificador();
-			
-			
-			if (!(informacion == segundaInformacion)){
-				cout << informacion << "->" << segundaInformacion << " = " << g->conectividad(recorrido->getInfo(), segundoRecorrido->getInfo()) << endl;
-			}
-			
-			segundoRecorrido = segundoRecorrido->getLink_suc(); // recor ser� su sucesor
-		}
-		
-		recorrido = recorrido->getLink_suc(); // recor ser� su sucesor
-	} 
-	
-	*/
-//	cout << g->getNumeroVertices() << endl;
-	//g->imprimirListaAdyacencia();
 	return 0;
 }
 
