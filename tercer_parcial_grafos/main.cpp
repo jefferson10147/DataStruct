@@ -1,3 +1,9 @@
+/*
+	Realizado por: Jefferson S. Montilla Mendoza C.I 26493551
+	Tercer Parcial - Segundo Proyecto
+	Estructuras de datos - UNET
+*/
+
 #include <iostream>
 #include <fstream>
 #include <cstdio>
