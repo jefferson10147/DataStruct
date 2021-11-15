@@ -21,16 +21,45 @@ bool chequearGrafoConexo(vector<string> v, Grafo *g);
 void imprimirFuentesYPozos(vector<string> v, Grafo *g);
 void aplicarDijkstra(Grafo *g);
 void eliminarElemento(Grafo *g);
+int menu();
 
 
 int main(int argc, char** argv) {
+	int opcionMenu;
 	modificarArchivo("aristas.txt");
 	
 	Grafo *g = new Grafo("aristas.txt",' ', true, true);
+	
+	while(opcionMenu = menu()){
+		switch(opcionMenu){
+			case 1:
+				g->imprimirListaAdyacencia();
+				break;
+			
+			case 2:
+				if (chequearGrafoConexo(listaVertices, g))
+					cout << "El grafo es conexo :D" << endl;
+				break;
+				
+			case 3:
+				imprimirFuentesYPozos(listaVertices, g);
+				break;
+				
+			case 4:
+				eliminarElemento(g);
+				break;
+				
+			case 5:
+				aplicarDijkstra(g);
+				break;	
+		}
+		system("pause");
+		system("cls");
+	}
 
 	// imprimirFuentesYPozos(listaVertices, g);
 	// aplicarDijkstra(g);
-	eliminarElemento(g);
+	// eliminarElemento(g);
 	/*
 	for(int x = 0; x < 4; x++) {
 		for(int y = 0; y < 4; y++) {
@@ -179,8 +208,10 @@ void aplicarDijkstra(Grafo *g) {
 	string vertice1, vertice2;
 	
 	cout << "Ingrese el vertice 1: "; 
+	cin.sync();
 	getline(cin, vertice1);	
 	cout << "Ingrese el vertice 2: ";
+	cin.sync();
 	getline(cin, vertice2);
 	
 	vertice1 = toupper(vertice1[0]);
@@ -194,6 +225,7 @@ void aplicarDijkstra(Grafo *g) {
 	else
 		cout << "Ha ocurrido un error :(" << endl;
 	
+	cout << endl;
 }
 
 
@@ -201,6 +233,7 @@ void eliminarElemento(Grafo *g) {
 	string vertice; 
 	cout << "Ingrese el elemento que desea eleminar: "; 
 	getline(cin, vertice);	
+	cin.sync();
 	vertice = toupper(vertice[0]);
 	
 	Vertice *v1 = new Vertice(vertice, 0);
@@ -212,4 +245,21 @@ void eliminarElemento(Grafo *g) {
 		
 	system("pause");
 	g->imprimirListaAdyacencia();	
+}
+
+
+int menu(){
+	int opcion;
+	
+	cout << "=================================================" << endl;
+	cout << "1. Imprimir Grafo." << endl;
+	cout << "2. Determinar si el Grafo es conexo." << endl;
+	cout << "3. Determinar nodos fuentes y pozos dentro del grafo." << endl;
+	cout << "4. Eliminar nodo." << endl;
+	cout << "5. Aplicar Dijkstra para la ruta minima entre dos vertices." << endl;
+	cout << "0. Salir." << endl;
+	cout << "\nIngrese la opcion: ";
+	cin >> opcion; 
+	
+	return opcion;
 }
