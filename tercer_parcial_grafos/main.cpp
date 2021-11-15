@@ -213,8 +213,8 @@ void eliminarElemento(Grafo *g) {
 	*/
 	string vertice; 
 	cout << "Ingrese el elemento que desea eleminar: "; 
-	getline(cin, vertice);	
 	cin.sync();
+	getline(cin, vertice);	
 	vertice = toupper(vertice[0]);
 	
 	Vertice *v1 = new Vertice(vertice, 0);
