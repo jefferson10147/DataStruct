@@ -3,7 +3,6 @@
 #include <cstdio>
 #include <string>
 #include <vector>
-#include <algorithm>
 
 #include "Grafo.h"
 #include "ListaD.h"
