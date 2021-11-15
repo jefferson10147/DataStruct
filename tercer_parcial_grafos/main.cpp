@@ -66,6 +66,11 @@ int main(int argc, char** argv) {
 
 
 void modificarArchivo(string nombreArchivo, string nombreArchivoAux) {
+	/*
+		Esta funcion lee los datos del archivo aristas.txt y los guarda en un archivo 
+		auxiliar, ya que luego este será usado por la libreria que grafo. De igual modo
+		guarda una referencia de los nodos del grafo dentro de un vector auxiliar.
+	*/
 	fstream archivo(nombreArchivo, ios::in), nuevoArchivo(nombreArchivoAux, ios::out);
 	string linea;
 	int i = 0;
@@ -96,6 +101,10 @@ void modificarArchivo(string nombreArchivo, string nombreArchivoAux) {
 
 
 bool existeEnVector(vector<string> v, string busqueda) {
+	/*
+		Esta funcion busca de manera lineal a través del vector auxiliar 
+		para ver si un elemento ya fue insertado.
+	*/
     for (int i = 0; i < v.size(); i++)
     	if(v[i] == &busqueda[0])
     		return true;
@@ -105,6 +114,11 @@ bool existeEnVector(vector<string> v, string busqueda) {
 
 
 bool chequearGrafoConexo(vector<string> listaVertices, Grafo *g) { 
+	/*
+		Busca verificar si el grafo cargado en la memoria es Conexo o no. 
+		Para ello va iterando sobre canda nodo del grafo, y va comparando con el
+		resto de nodos si estos pueden llegar a conectarse.
+	*/
 	int contadorDeGrafosConectados;
 	for(int x = 0; x < listaVertices.size(); x++) {
 		contadorDeGrafosConectados = 0;
@@ -129,6 +143,10 @@ bool chequearGrafoConexo(vector<string> listaVertices, Grafo *g) {
 
 
 void imprimirFuentesYPozos(vector<string> listaVertices, Grafo *g) {
+	/*
+		Verifica los nodos que son pozos y los que son fuentes dentro del grafo
+		Si el grafo es Conexo, no realiza el proceso.
+	*/
 	if(chequearGrafoConexo(listaVertices, g)){
 		cout << "El grafo es conexo." << endl;
 		return;
@@ -160,6 +178,11 @@ void imprimirFuentesYPozos(vector<string> listaVertices, Grafo *g) {
 
 
 void aplicarDijkstra(Grafo *g) {
+	/*
+		Aplica el algoritmo de Dijkstra para ver cual es la ruta
+		minima entre dos vertices. Se debe ingresar un determinado valor del
+		nodo a través de teclado.
+	*/
 	string vertice1, vertice2;
 	
 	cout << "Ingrese el vertice 1: "; 
@@ -185,6 +208,9 @@ void aplicarDijkstra(Grafo *g) {
 
 
 void eliminarElemento(Grafo *g) {
+	/*
+		Elimina un determinado nodo que el usuario indique.
+	*/
 	string vertice; 
 	cout << "Ingrese el elemento que desea eleminar: "; 
 	getline(cin, vertice);	
@@ -204,6 +230,9 @@ void eliminarElemento(Grafo *g) {
 
 
 int menu(){
+	/*
+		Menú del usuario, retorna la opción elegida por el usuario.
+	*/
 	int opcion;
 	
 	cout << "=================================================" << endl;
