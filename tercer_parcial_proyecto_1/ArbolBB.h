@@ -198,7 +198,7 @@ void ArbolBB<T>::InOrden(NodoABB<T> *nodo, bool r) {
 		InOrden(nodo->getIzquierdo(), false);
 	for (int i = 0; i < Nivel(nodo->getValor()); i++)
 		cout << "    ";
-	cout << nodo->getValor() << "(" << nodo->FE << ")" <<  endl;
+	cout << nodo->getValor() << endl;
 	if (nodo->getDerecho()) 
 		InOrden(nodo->getDerecho(), false);
 }
@@ -209,7 +209,7 @@ void ArbolBB<T>::PreOrden(NodoABB<T> *nodo, bool r) {
 		nodo = raiz;
 	for (int i = 0; i < Nivel(nodo->getValor()); i++)
 		cout << "    ";
-	cout << nodo->getValor() << "(" << nodo->FE << ")" <<  endl;
+	cout << nodo->getValor() << endl;
 	if (nodo->getIzquierdo()) 
 		PreOrden(nodo->getIzquierdo(), false);
 	if (nodo->getDerecho())
@@ -226,7 +226,7 @@ void ArbolBB<T>::PostOrden(NodoABB<T> *nodo, bool r) {
 		PostOrden(nodo->getDerecho(), false);
 	for (int i = 0; i < Nivel(nodo->getValor()); i++)
 		cout << "    ";
-	cout << nodo->getValor() << "(" << nodo->FE << ")" <<  endl;
+	cout << nodo->getValor() <<  endl;
 }
 
 template<class T>
